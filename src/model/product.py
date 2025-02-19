@@ -98,8 +98,10 @@ class Product(Model):
 
 
     # Deletes the chosen product
-    def delete_product(self):
-        self.delete_instance()
+    @classmethod
+    def delete_product(cls, product_id):
+        product = Product.get_product(product_id)
+        product.delete_instance()
 
 
 

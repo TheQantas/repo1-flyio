@@ -70,6 +70,17 @@
             <td><u class="not_urgent_underline">{{ product.days_left }}</u></td>
             {% endif %}
             <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
+            <td>
+                <form id="del-item"
+                    hx-delete="/delete/{{ product.get_id() }}"
+                    hx-target="body"
+                    hx-swap="outerHTML show:none"
+                    hx-confirm="Delete this item?"
+                    hx-trigger="click">
+                    <img src="/icons/closed-trash-can-svgrepo-com.svg" width ="20">
+                    <input type="hidden" name="view" value="{{ view }}">
+                </form>
+            </td>
         </tr>
         {% endfor %}
     </table>
