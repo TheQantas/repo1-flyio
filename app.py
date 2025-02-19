@@ -27,6 +27,7 @@ def _db_close(exc):
 def home():
     # Fills the days left for each product with product.get_days_until_out
     Product.fill_days_left()
+
     # Loads products in urgency order
     products = Product.urgency_rank()
     return render_template("index.html", product_list=products)
@@ -100,4 +101,5 @@ def update_inventory(product_id: int):
 
 
 if __name__ == '__main__':
+
     app.run(port=5000, debug=True)

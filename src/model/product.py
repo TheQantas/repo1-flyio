@@ -46,14 +46,17 @@ class Product(Model):
 
     # Fills the database with how many days till each product is out of stock
     @staticmethod
-    def fill_days_left() -> list['Product']:
+    def fill_days_left():
         products = Product.all()
         for product in products:
             days_left = product.get_days_until_out()
             if days_left == None:
-                pass
+                product.days_left = None
             else:
                 product.days_left = days_left
+            product.save()
+        products = Product.urgency_rank()
+
 
 
 
