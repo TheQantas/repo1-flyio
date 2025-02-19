@@ -10,7 +10,12 @@ app = Flask(__name__, static_url_path='', static_folder='static')
 app.config['SECRET_KEY'] = secrets.token_urlsafe()
 #TODO: This should NOT be hardcoded in production
 app.config['SECURITY_PASSWORD_SALT'] = os.environ.get("SECURITY_PASSWORD_SALT", '146585145368132386173505678016728509634')
-
+app.config['SECURITY_USERNAME_ENABLE'] = True
+app.config['SECURITY_RECOVERABLE'] = True
+#TODO: we will need to set up an email server of some sort
+#I have made spam gmail accounts and used their server before
+#but that might be too hacky for this. 
+# we could do something like mailgun...
 # Setup Flask-Security
 user_datastore = PeeweeUserDatastore(user_db, User, Role, UserRoles)
 security = Security(app, user_datastore)
@@ -42,9 +47,9 @@ def _db_close(exc):
 def users():
     form = RegisterForm(request.form)
     if request.method == 'POST' and form.validate_on_submit():
-        security.datastore.create_user(email=form.email.data, password=hash_password(form.password.data))
+        security.datastore.create_user(email=form.email.data, username=form.username.data, password=hash_password(form.password.data))
         flash("User registered successfully")
-    return render_template("security/register_user.html", register_user_form=form)
+    return render_template("security/register_user.html", register_user_form=form, user_list=User.all())
 
 @app.get("/")
 @auth_required()
@@ -110,7 +115,7 @@ def update_inventory(product_id: int):
 with app.app_context():
     sd = security.datastore
     if not sd.find_user(email="admin@thehrdc.org"):
-        sd.create_user(email="admin@thehrdc.org", password=hash_password("password"))
+        sd.create_user(email="admin@thehrdc.org", username="admin", password=hash_password("password"))
     if not sd.find_role('admin'):
         sd.create_role(name='admin', description='Highest level of access. Only admins can create other users.', 
                        permissions={'read', 'write', 'add_user'})

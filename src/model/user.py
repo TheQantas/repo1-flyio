@@ -20,10 +20,15 @@ class Role(RoleMixin, user_db.Model):
 # we need the one from UserMixin.
 class User(UserMixin, user_db.Model):
     email = TextField()
+    username = TextField()
     password = TextField()
     active = BooleanField(default=True)
     fs_uniquifier = TextField(null=False)
     confirmed_at = DateTimeField(null=True)
+
+    @staticmethod
+    def all() -> list['User']:
+        return list(User.select())
 
 class UserRoles(user_db.Model):
     # Because peewee does not come with built-in many-to-many
