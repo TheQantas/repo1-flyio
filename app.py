@@ -68,10 +68,11 @@ def add():
     return redirect("/")
 
 
-@app.post("/delete/<int:product_id>")
+@app.delete("/delete/<int:product_id>")
 def delete(product_id: int):
     Product.delete_product(product_id)
-    return  redirect("/")
+    products = Product.urgency_rank()
+    return render_template("index.html", product_list=products)
 
 
 @app.route("/update/inventory/<int:product_id>", methods=["PATCH"])

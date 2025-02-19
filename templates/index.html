@@ -72,7 +72,7 @@
             <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
             <td>
                 <form id="del-item"
-                    hx-post="/delete/{{ product.get_id() }}"
+                    hx-delete="/delete/{{ product.get_id() }}"
                     hx-target="body"
                     hx-swap="outerHTML show:none"
                     hx-confirm="Delete this item?"
