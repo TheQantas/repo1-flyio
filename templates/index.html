@@ -84,9 +84,13 @@
         </tr>
         {% endfor %}
     </table>
-    <button hx-post="/add" hx-trigger="click" hx-target="body" hx-swap="outerHTML">
-        ADD STUFF
-    </button>
+    <div id="add_form">
+        {% block content %}
+        <button hx-get="/add" hx-trigger="click" hx-target="#add_form" hx-swap="outerHTML">
+            ADD STUFF
+        </button>
+        {% endblock %}
+    </div>
 
 </body>
 

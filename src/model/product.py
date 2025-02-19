@@ -9,7 +9,7 @@ db = SqliteDatabase('inventory.db')
 
 
 class Product(Model):
-    product_name = CharField()
+    product_name = CharField(unique=True)
     inventory = IntegerField(default=0)
     price = DecimalField(decimal_places=2, auto_round=True)
     unit_type = CharField(null=True)
@@ -61,10 +61,13 @@ class Product(Model):
     # Returns the information of the chosen product based on its product name or id
     @staticmethod
     def get_product(name_or_id: str | int) -> Optional['Product']:
-        if type(name_or_id) is str:
-            return Product.get(Product.product_name == name_or_id)
-        else:
-            return Product.get_by_id(name_or_id)
+        try:
+            if type(name_or_id) is str:
+                return Product.get(Product.product_name == name_or_id)
+            else:
+                return Product.get_by_id(name_or_id)
+        except DoesNotExist:
+            return None
     
     
 
