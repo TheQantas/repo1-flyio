@@ -1,4 +1,4 @@
-from flask import Flask, request, Response, render_template, redirect, abort
+from flask import Flask, request, Response, render_template, redirect, abort, flash
 from src.model.product import Product, InventorySnapshot, db
 
 app = Flask(__name__, static_url_path='', static_folder='static')
@@ -65,10 +65,13 @@ def get_add():
 @app.route("/add", methods=["POST"])
 def add():
     products = Product.all()
-    count = len(products)
-    Product.add_product(request.form.get("product_name"), int(request.form.get("inventory")), float(request.form.get("price")), request.form.get("unit_type"), int(request.form.get("ideal_stock")), None)
-    Product.fill_days_left()
-    return redirect("/")
+    if Product.get_product(request.form.get("product_name")) is None:
+        Product.add_product(request.form.get("product_name"), int(request.form.get("inventory")), float(request.form.get("price")), request.form.get("unit_type"), int(request.form.get("ideal_stock")), None)
+        Product.fill_days_left()
+        return redirect("/")
+    else:
+        abort(400)
+
 
 
 
