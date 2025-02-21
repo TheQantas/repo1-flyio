@@ -1,3 +1,31 @@
+@font-face {
+    font-family: 'Gotham Bold';
+    src: url('../fonts/Gotham-Bold.otf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham Book';
+    src: url('../fonts/Gotham-Book.otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham Bold Italic';
+    src: url('../fonts/Gotham-BoldItalic.otf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham Book Italic';
+    src: url('../fonts/Gotham-BookItalic.otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -61,4 +89,99 @@ td:hover > .in-cell-action {
 }
 .in-cell-action > svg, .in-cell-action > img {
     height: 1em;
+}
+
+.header
+{
+    padding: 15px;
+    text-align: center;
+    width: 100%;
+    height: auto;
+    background: #147278;
+    color: white;
+}
+
+.header img
+{
+    width: 15%;
+    height: auto;
+}
+
+.navigation
+{
+    background-color: #ffffff;
+    overflow: auto;
+}
+
+
+.navigation a
+{
+    color: #003e52;
+    cursor: pointer;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 10.5px;
+    font-family: 'Gotham Book';
+    font-weight: normal;
+    float: left;
+    border: 3px solid black;
+    border-color: #ffffff;
+    position: relative;
+    box-shadow: 0 2px 2px -2px rgba(0,0,0,.2);
+}
+
+.navigation a:hover
+{
+    background-color: #147278;
+    border-color: #147278;
+    color: white;
+}
+
+.navigation a:active
+{
+    border: 3px solid black;
+    border-color: #147278;
+    background-color: #ffffff;
+    color: #003e52;
+}
+
+.navigation a.inventory
+{
+    text-decoration: underline;
+    text-decoration-color: #a1a750;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 3px;
+}
+
+.navigation a.inventory:hover
+{
+    text-decoration: underline;
+    text-decoration-color: #147278;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 3px;
+}
+
+.navigation a.inventory:active
+{
+    text-decoration: underline;
+    text-decoration-color: #ffffff;
+    text-underline-offset: 2px;
+    text-decoration-thickness: 3px;
+}
+
+.navigation a.account
+{
+    float: right;
+    text-align: right;
+    padding: 14px 16px;
+    right: auto;
+}
+
+@media screen and (max-width: 500px)
+{
+    .navbar a
+    {
+        float: none;
+        display: block;
+    }
 }
