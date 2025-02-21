@@ -55,7 +55,6 @@ class Product(Model):
             else:
                 product.days_left = days_left
             product.save()
-        products = Product.urgency_rank()
 
 
 

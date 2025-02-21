@@ -9,17 +9,26 @@
     <h1>Group One Product Website</h1>
 
     <h2>Product Info</h2>
-        <p>This is a web application to help manage inventory items. It is a work in progress.
-            Along with basic inventory tracking, the future goals of this project include, but are not limited to:
-            <ul>
-                <li>Access control</li>
-                <li>Urgency ranking</li>
-                <li>Notifications when stock runs low</li>
-                <li>Help making reports on inventory data</li>
-            </ul>
-            It will be written using Flask (python) for a web server, Peewee ORM for data storage, and
-            HTML with HTMX for a user interface. 
-        </p>
+        <p>Admin access is a Create, Read, Update, and Destroy (CRUD) web application to help manage inventory items.
+            Currently, the system is capable of allowing users to add items and delete items from the inventory.
+            Users can change the current stock, other items will be available to change by the admin in later additions.
+            Log in and access control are a work in progress.
+            Styling will continue to be added as we go.
+            The inventory orders itself by how soon it will be till an item is out of stock.
+            Items that will be out in under 7 days have a red underline</p>
+    <h2>In the next release we expect to have</h2>
+        <ul>
+            <li>Improved Access control</li>
+            <li>Better indicators products are almost out of stock</li>
+            <li>Improved HRDC branding</li>
+            <li>Help making reports on inventory data</li>
+            <li>Update on all item values</li>
+        </ul>
+        It is written using Flask (python) for a web server, Peewee ORM for data storage, and
+        HTML with HTMX for a user interface.
+    <h2>We also discussed doing a seperate application for staff and volunteers to use.</h2>
         <img src="images/uml.drawio.png">
+    <a href="/docs/user-documentation.html">User Documentation</a>
+    <a href="/docs/dev-documentation.html">Developer Documentation</a>
 </body>
 </html>
