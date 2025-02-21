@@ -9,6 +9,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HRDC Inventory Management System</title>
+    <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/index.css">
     <script src="scripts/index.js"></script>
 </head>
@@ -72,11 +73,11 @@
             {% if product.days_left == None %}
             <td>Added Recently</td>
             {% elif product.days_left <= 7 %}
-            <td><u class="urgent_underline">{{ product.days_left }}</u></td>
+            <td><u class="urgent-underline">{{ product.days_left }}</u></td>
             {% elif product.days_left > 7 and product.days_left <= 14 %}
-            <td><u class="less_urgent_underline">{{ product.days_left }}</u></td>
+            <td><u class="less-urgent-underline">{{ product.days_left }}</u></td>
             {% elif product.days_left >= 15 %}
-            <td><u class="not_urgent_underline">{{ product.days_left }}</u></td>
+            <td><u class="not-urgent-underline">{{ product.days_left }}</u></td>
             {% endif %}
             <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
             <td>
