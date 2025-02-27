@@ -1,7 +1,7 @@
 import os, secrets
 from flask import Flask, request, Response, render_template, redirect, abort, flash, url_for, session
 from src.model.product import Product, InventorySnapshot, db
-from src.model.user import User, Role, UserRoles, user_db
+from src.model.user import User, user_db
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
 from wtforms import StringField, PasswordField, SubmitField, validators
 from flask_wtf import FlaskForm
@@ -11,8 +11,8 @@ from django.utils.http import url_has_allowed_host_and_scheme
 login_manager = LoginManager()
 login_manager.login_view = "login"
 class LoginForm(FlaskForm):
-    username = StringField('username', validators=[validators.input_required()])
-    password  = PasswordField('password', validators=[validators.input_required()])
+    username = StringField('Username', validators=[validators.input_required()])
+    password  = PasswordField('Password', validators=[validators.input_required()])
     submit = SubmitField('Login')
 
 app = Flask(__name__, static_url_path='', static_folder='static')
@@ -27,7 +27,7 @@ with db:
     db.create_tables([Product, InventorySnapshot])
 
 with user_db:
-    user_db.create_tables([User, Role, UserRoles])
+    user_db.create_tables([User])
 
 @login_manager.user_loader
 def load_user(user_id):
@@ -73,29 +73,20 @@ def login():
         if not login_success:
             errors.append("Login failed")
             return render_template('security/login.html', form=form, errors=errors)
-
-        # url_has_allowed_host_and_scheme should check if the url is safe
-        # for redirects, meaning it matches the request host.
-        # See Django's url_has_allowed_host_and_scheme for an example.
-        # if not url_has_allowed_host_and_scheme(next, request.host):
-        #     return abort(400)
         return redirect(next or url_for("home"))
     return render_template('security/login.html', form=form, errors=errors)
 
 @app.get("/")
-@login_required
+@login_required #any user can access home page
 def home():
     # Fills the days left for each product with product.get_days_until_out
     Product.fill_days_left()
-
     # Loads products in urgency order
     products = Product.urgency_rank()
     return render_template("index.html", product_list=products, user=current_user)
-    # return render_template("index.html", product_list=products, user=current_user, 
-    #                        registration_access=current_user.has_permission('add_user'))
 
 @app.get("/inventory-history")
-@login_required
+@login_required #any user can access inventory history
 def inventory_history():
     product_id = request.args.get('product-id', None, type=int)
     if product_id is None: # TODO: have actual error page
@@ -120,7 +111,11 @@ def inventory_history():
 
 
 @app.get("/add")
+@login_required
 def get_add():
+    #only admin can add products
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can add products')
     return render_template("add_form.html")
 
 
@@ -129,7 +124,9 @@ def get_add():
 @app.route("/add", methods=["POST"])
 @login_required
 def add():
-    products = Product.all()
+    #only admin can add products
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can add products')
     if Product.get_product(request.form.get("product_name")) is None:
         Product.add_product(request.form.get("product_name"), int(request.form.get("inventory")), float(request.form.get("price")), request.form.get("unit_type"), int(request.form.get("ideal_stock")), None)
         Product.fill_days_left()
@@ -142,14 +139,19 @@ def add():
 
 
 @app.delete("/delete/<int:product_id>")
+@login_required
 def delete(product_id: int):
+    #only admin can delete products
+    #TODO: display message or page to user when encountering 401 error
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can delete products')
     Product.delete_product(product_id)
     products = Product.urgency_rank()
-    return render_template("index.html", product_list=products)
+    return render_template("index.html", product_list=products, user=current_user)
 
 
 @app.route("/update/inventory/<int:product_id>", methods=["PATCH"])
-@login_required
+@login_required #any user can update inventory
 def update_inventory(product_id: int):
     new_stock = request.form.get('stock', None, type=int)
     if new_stock is None or new_stock < 0:
@@ -160,7 +162,6 @@ def update_inventory(product_id: int):
         return abort(404, description=f"Could not find product {product_id}")
 
     product.update_stock(new_stock)
-
     return redirect("/", 303)
 
 with app.app_context():

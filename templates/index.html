@@ -24,8 +24,9 @@
     <div class="navigation">
         <a class="inventory" element="current">INVENTORY</a>
         <a class="reports">REPORTS</a>
-        <a class="account" img="icons/account"> ACCOUNT</a>
-        <form action="/logout" method="post">
+        <a class="account" img="icons/account">ACCOUNT</a>
+        <form class="logout" action="/logout" method="post" style="display: flex; align-items: center; gap: 10px">
+            <p>Welcome, {{ user.username }}</p>
             <button type="submit">Log Out</button>
         </form>
     </div>
@@ -76,30 +77,22 @@
             <td>{{ product.last_updated }}</td>
             {% if product.days_left == None %}
             <td>Added Recently</td>
-            <<<<<<< HEAD {% elif product.days_left <=7 %} <td><u class="urgent_underline">{{ product.days_left }}</u>
-                </td>
-                {% elif product.days_left > 7 and product.days_left <= 14 %} <td><u class="less_urgent_underline">{{
+
+            {% elif product.days_left <= 7 %} <td><u class="urgent-underline">{{ product.days_left }}</u></td>
+                {% elif product.days_left > 7 and product.days_left <= 14 %} <td><u class="less-urgent-underline">{{
                         product.days_left }}</u></td>
                     {% elif product.days_left >= 15 %}
-                    <td><u class="not_urgent_underline">{{ product.days_left }}</u></td>
+                    <td><u class="not-urgent-underline">{{ product.days_left }}</u></td>
                     {% endif %}
                     <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
-                    =======
-                    {% elif product.days_left <= 7 %} <td><u class="urgent-underline">{{ product.days_left }}</u></td>
-                        {% elif product.days_left > 7 and product.days_left <= 14 %} <td><u
-                                class="less-urgent-underline">{{ product.days_left }}</u></td>
-                            {% elif product.days_left >= 15 %}
-                            <td><u class="not-urgent-underline">{{ product.days_left }}</u></td>
-                            {% endif %}
-                            <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
-                            <td>
-                                <form id="del-item" hx-delete="/delete/{{ product.get_id() }}" hx-target="body"
-                                    hx-swap="outerHTML show:none" hx-confirm="Delete this item?" hx-trigger="click">
-                                    <img src="/icons/closed-trash-can-svgrepo-com.svg" width="20">
-                                    <input type="hidden" name="view" value="{{ view }}">
-                                </form>
-                            </td>
-                            >>>>>>> main
+                    <td>
+                        <form id="del-item" hx-delete="/delete/{{ product.get_id() }}" hx-target="body"
+                            hx-swap="outerHTML show:none" hx-confirm="Delete this item?" hx-trigger="click">
+                            <img src="/icons/closed-trash-can-svgrepo-com.svg" width="20">
+                            <input type="hidden" name="view" value="{{ view }}">
+                        </form>
+                    </td>
+
         </tr>
         {% endfor %}
     </table>
