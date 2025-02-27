@@ -1,5 +1,5 @@
 import secrets
-from flask import Flask, request, Response, render_template, redirect, abort, flash, url_for, session
+from flask import Flask, request, Response, render_template, redirect, abort, flash, url_for
 from src.model.product import Product, InventorySnapshot, db
 from src.model.user import User, user_db
 from src.common.forms import LoginForm
@@ -46,7 +46,6 @@ def _db_close(exc):
 @app.post("/logout")
 def logout():
     logout_user()
-    session.clear()
     return redirect(url_for("login"))
 
 @app.route("/login", methods=["GET", "POST"])
