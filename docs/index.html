@@ -9,99 +9,30 @@
     <h1>Group One Product Website</h1>
 
     <h2>Product Info</h2>
-        <p>This is a web application to help manage inventory items. It is a work in progress.
-            Along with basic inventory tracking, the future goals of this project include, but are not limited to:
-            <ul>
-                <li>Access control</li>
-                <li>Urgency ranking</li>
-                <li>Notifications when stock runs low</li>
-                <li>Help making reports on inventory data</li>
-            </ul>
-            It will be written using Flask (python) for a web server, Peewee ORM for data storage, and
-            HTML with HTMX for a user interface. 
-        </p>
+        <p>Admin access is a Create, Read, Update, and Destroy (CRUD) web application to help manage inventory items.
+            Currently, the system is capable of allowing users to add items and delete items from the inventory.
+            Users can change the current stock, other items will be available to change by the admin in later additions.
+            Log in and access control are a work in progress.
+            Styling will continue to be added as we go.
+            The inventory orders itself by how soon it will be till an item is out of stock.
+            Items that will be out in under 7 days have a red underline</p>
+    <h2>In the next release we expect to have</h2>
+        <ul>
+            <li>Improved Access control</li>
+            <li>Better indicators products are almost out of stock</li>
+            <li>Improved HRDC branding</li>
+            <li>Help making reports on inventory data</li>
+            <li>Update on all item values</li>
+        </ul>
+        It is written using Flask (python) for a web server, Peewee ORM for data storage, and
+        HTML with HTMX for a user interface.
+    <h2>We also discussed doing a seperate application for staff and volunteers to use.</h2>
         <img src="images/uml.drawio.png">
-    <h2>User Documentation</h2>
-   <h3>Note: this is a zero release, these features are coming soon!</h3>
-    <ul>
-        <li>
-            <h4>Description</h4>
-            This is an inventory management system for the HRDC warming center, It allows users to create new products to add to the inventory, update stock, price, image, ect, remove products from inventory, and display the current inventory. Compared to other software like Microsoft Excel, this will be designed specifically for HRDC and be easier to use than more generalized software. This will streamline the process of updating and tracking inventory at the HRDC warming center. 
-        </li>
-        <li>
-            <h4>Accessing the software</h4>
-            This is a web application. A user will be able to access it via a url, but for now it can be run locally.
-        </li>
-        <li>
-            <h4>Starting the software</h4>
-            The software can be run by entering the URL into a browser. For a local deployment, refer to the developer documentation.
-        </li>
-        <li>
-            <h4>Using the software</h4>
-            There will be an intuitive user interface that will allow users to create, read, update, and delete entries in the inventory.
-            More complete documentation on using the software will be provided when the application gets further along in development.
-        </li>
-        <li>
-            <h4>Reporting a bug</h4>
-            If a bug needs to be reported, a description of the bug can be submitted to Cody Hager (PM): chager004@gmail.com.
-        </li> 
-    </ul>
-    <br>
-    <h2>Developer Documentation</h2>
-    <ul>
-        <li>
-            <h4>Obtaining the source code</h4>
-            To get the source code on your machine, run <code>git clone https://github.com/423S25/project1</code>.
-            We intend to implement a package manager, but for now, make sure to have Python 3 installed, with Flask and Peewee.
-        </li>
-        <li>
-            <h4>Project Structure</h4>
-            The directory structure is <code>/docs</code> for the documentation, <code>/src/model</code> for the database code, and <code>/templates</code> for the rendered pages.
-            <code>app.py</code> (the web server) is located in the root directory.
-        </li>
-        <li>
-            <h4>Building</h4>
-            At this time, no building is needed. These docs will be updated when we implement a package manager.
-        </li>
-        <li>
-            <h4>Testing</h4>
-            Developers should be sure to test 
-            the core functionality of the application with every contribution. At least one approving reviewer should do 
-            a code review and test each contribution.
-        </li>
-        <li>
-            <h4>Automated Building and Testing</h4>
-            At this time, we don't have any automated building or testing set up. These docs will be updated when we do.  
-        </li>
-        <li>
-            <h4>How to release a new version</h4>
-            To release a new version of this software, update the code and send the updated code to the server.
-        </li>
-        <li>
-            <h4>Bug Tracking</h4>
-            To view a list of current and resolved bugs, go to our github issues <a href="https://github.com/423S25/project1/issues">here</a>.
-        </li> 
-        <li>
-            <h4>Additional considerations</h4>
-            The code for this project is stored <a href="https://github.com/423S25/project1">here</a>.
-            Developers should provide meaningful comments when contributing source code.
-        </li>
-        <li>
-            <h4>Contribution</h4>
-            This is the general expected workflow for adding a feature to the project:
-            <ol>
-                <li>make a branch on github</li>
-                <li><code>git pull</code> on the main branch</li>
-                <li><code>git checkout branch-name</code></li>
-                <li>do your work, add your feature, you can save your changes to your branch</li>
-                <li>push your changes (make sure you are on your branch, not main)</li>
-                <li>on github, make a pull request to merge your changes into the main branch (resolve any merge conflicts)</li>
-                <li>tag someone for a review</li>
-                <li>once someone approves, merge it</li>
-            </ol>
-        </li>
-    </ul>
-
-
+    <p>
+        <a href="user-documentation">User Documentation</a>
+    </p>
+    <p>
+        <a href="dev-documentation">Developer Documentation</a>
+    </p>
 </body>
 </html>

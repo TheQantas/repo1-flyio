@@ -9,18 +9,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>HRDC Inventory Management System</title>
+    <link rel="stylesheet" href="styles/base.css">
     <link rel="stylesheet" href="styles/index.css">
     <script src="scripts/index.js"></script>
 </head>
 
 <body>
-    <h1>Inventory Management System</h1>
-    <h2>Welcome, {{ user.username }}</h2>
-    <div style="float: right;">
+
+
+    <div class="header">
+        <img class="logo" src="icons/logo_white .png">
+    </div>
+
+    <div class="navigation">
+        <a class="inventory" element="current">INVENTORY</a>
+        <a class="reports">REPORTS</a>
+        <a class="account" img="icons/account"> ACCOUNT</a>
         <form action="/logout" method="post">
             <button type="submit">Log Out</button>
         </form>
     </div>
+
     <!--
         endpoint: the endpoing to hit to update (e.g., /update/<endpoint>/<id>)
         id: the product id (e.g., /update/<endpoint>/<id>)
@@ -67,19 +76,40 @@
             <td>{{ product.last_updated }}</td>
             {% if product.days_left == None %}
             <td>Added Recently</td>
-            {% elif product.days_left <= 7 %} <td><u class="urgent_underline">{{ product.days_left }}</u></td>
+            <<<<<<< HEAD {% elif product.days_left <=7 %} <td><u class="urgent_underline">{{ product.days_left }}</u>
+                </td>
                 {% elif product.days_left > 7 and product.days_left <= 14 %} <td><u class="less_urgent_underline">{{
                         product.days_left }}</u></td>
                     {% elif product.days_left >= 15 %}
                     <td><u class="not_urgent_underline">{{ product.days_left }}</u></td>
                     {% endif %}
                     <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
+                    =======
+                    {% elif product.days_left <= 7 %} <td><u class="urgent-underline">{{ product.days_left }}</u></td>
+                        {% elif product.days_left > 7 and product.days_left <= 14 %} <td><u
+                                class="less-urgent-underline">{{ product.days_left }}</u></td>
+                            {% elif product.days_left >= 15 %}
+                            <td><u class="not-urgent-underline">{{ product.days_left }}</u></td>
+                            {% endif %}
+                            <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
+                            <td>
+                                <form id="del-item" hx-delete="/delete/{{ product.get_id() }}" hx-target="body"
+                                    hx-swap="outerHTML show:none" hx-confirm="Delete this item?" hx-trigger="click">
+                                    <img src="/icons/closed-trash-can-svgrepo-com.svg" width="20">
+                                    <input type="hidden" name="view" value="{{ view }}">
+                                </form>
+                            </td>
+                            >>>>>>> main
         </tr>
         {% endfor %}
     </table>
-    <button hx-post="/add" hx-trigger="click" hx-target="body" hx-swap="outerHTML">
-        ADD STUFF
-    </button>
+    <div id="add_form">
+        {% block content %}
+        <button hx-get="/add" hx-trigger="click" hx-target="#add_form" hx-swap="outerHTML">
+            ADD STUFF
+        </button>
+        {% endblock %}
+    </div>
 
 </body>
 

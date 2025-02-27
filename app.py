@@ -87,6 +87,7 @@ def login():
 def home():
     # Fills the days left for each product with product.get_days_until_out
     Product.fill_days_left()
+
     # Loads products in urgency order
     products = Product.urgency_rank()
     return render_template("index.html", product_list=products, user=current_user)
@@ -118,6 +119,10 @@ def inventory_history():
     )
 
 
+@app.get("/add")
+def get_add():
+    return render_template("add_form.html")
+
 
 #Simple add, just adds stuff + 1 works with htmx
 #TODO: make this a form
@@ -125,11 +130,23 @@ def inventory_history():
 @login_required
 def add():
     products = Product.all()
-    count = len(products)
-    stuff = "stuff" + str(count)
-    Product.add_product(stuff, 5, 5.00, "piles", 0, None)
-    Product.fill_days_left()
-    return redirect("/")
+    if Product.get_product(request.form.get("product_name")) is None:
+        Product.add_product(request.form.get("product_name"), int(request.form.get("inventory")), float(request.form.get("price")), request.form.get("unit_type"), int(request.form.get("ideal_stock")), None)
+        Product.fill_days_left()
+        return redirect("/")
+    else:
+        abort(400)
+
+
+
+
+
+@app.delete("/delete/<int:product_id>")
+def delete(product_id: int):
+    Product.delete_product(product_id)
+    products = Product.urgency_rank()
+    return render_template("index.html", product_list=products)
+
 
 @app.route("/update/inventory/<int:product_id>", methods=["PATCH"])
 @login_required
@@ -155,4 +172,5 @@ with app.app_context():
         User.add_user('volunteer', bcrypt.generate_password_hash('password'))
 
 if __name__ == '__main__':
+
     app.run(port=5000, debug=True)

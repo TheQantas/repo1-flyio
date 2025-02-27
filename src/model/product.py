@@ -9,7 +9,7 @@ db = SqliteDatabase('inventory.db')
 
 
 class Product(Model):
-    product_name = CharField()
+    product_name = CharField(unique=True)
     inventory = IntegerField(default=0)
     price = DecimalField(decimal_places=2, auto_round=True)
     unit_type = CharField(null=True)
@@ -46,14 +46,16 @@ class Product(Model):
 
     # Fills the database with how many days till each product is out of stock
     @staticmethod
-    def fill_days_left() -> list['Product']:
+    def fill_days_left():
         products = Product.all()
         for product in products:
             days_left = product.get_days_until_out()
             if days_left == None:
-                pass
+                product.days_left = None
             else:
                 product.days_left = days_left
+            product.save()
+
 
 
 
@@ -61,10 +63,13 @@ class Product(Model):
     # Returns the information of the chosen product based on its product name or id
     @staticmethod
     def get_product(name_or_id: str | int) -> Optional['Product']:
-        if type(name_or_id) is str:
-            return Product.get(Product.product_name == name_or_id)
-        else:
-            return Product.get_by_id(name_or_id)
+        try:
+            if type(name_or_id) is str:
+                return Product.get(Product.product_name == name_or_id)
+            else:
+                return Product.get_by_id(name_or_id)
+        except DoesNotExist:
+            return None
     
     
 
@@ -98,8 +103,10 @@ class Product(Model):
 
 
     # Deletes the chosen product
-    def delete_product(self):
-        self.delete_instance()
+    @classmethod
+    def delete_product(cls, product_id):
+        product = Product.get_product(product_id)
+        product.delete_instance()
 
 
 

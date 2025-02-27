@@ -1,0 +1,52 @@
+:root {
+    --hrdc-theme-teal: #147278;
+    --hrdc-theme-dark-teal: #003e52;
+    --hrdc-theme-yellow: #a1a750;
+
+    --hrdc-theme-alert: hsl(350, 70%, 50%);
+    --hrdc-theme-warning: var(--hrdc-theme-yellow);
+    --hrdc-theme-okay: hsl(100, 70%, 40%);
+}
+
+@font-face {
+    font-family: 'Gotham Bold';
+    src: url('../fonts/Gotham-Bold.otf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham Book';
+    src: url('../fonts/Gotham-Book.otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham Bold Italic';
+    src: url('../fonts/Gotham-BoldItalic.otf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham Book Italic';
+    src: url('../fonts/Gotham-BookItalic.otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    margin: 0px;
+}
+
+.header {
+    text-align: center;
+    width: 100%;
+    background: var(--hrdc-theme-teal);
+    color: white;
+}
+
+.header img {
+    height: 70px;
+}
