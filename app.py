@@ -1,23 +1,18 @@
-import os, secrets
+import secrets
 from flask import Flask, request, Response, render_template, redirect, abort, flash, url_for, session
 from src.model.product import Product, InventorySnapshot, db
 from src.model.user import User, user_db
+from src.common.forms import LoginForm
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
-from wtforms import StringField, PasswordField, SubmitField, validators
-from flask_wtf import FlaskForm
 from flask_bcrypt import Bcrypt
-from django.utils.http import url_has_allowed_host_and_scheme
+
+app = Flask(__name__, static_url_path='', static_folder='static')
 
 login_manager = LoginManager()
 login_manager.login_view = "login"
-class LoginForm(FlaskForm):
-    username = StringField('Username', validators=[validators.input_required()])
-    password  = PasswordField('Password', validators=[validators.input_required()])
-    submit = SubmitField('Login')
-
-app = Flask(__name__, static_url_path='', static_folder='static')
-bcrypt = Bcrypt(app)
 login_manager.init_app(app)
+
+bcrypt = Bcrypt(app)
 
 app.config['SECRET_KEY'] = secrets.token_urlsafe()
 app.config["SESSION_PROTECTION"] = "strong"
@@ -29,6 +24,7 @@ with db:
 with user_db:
     user_db.create_tables([User])
 
+#used by flask-login
 @login_manager.user_loader
 def load_user(user_id):
     user = User.get_by_uid(user_id)
@@ -57,10 +53,8 @@ def logout():
 def login():
     form = LoginForm()
     next = request.args.get('next')
-    errors = []
-    if form.validate_on_submit():
-        # Login and validate the user.
-        # user should be an instance of your `User` class
+    errors = [] #used to display errors on the login page
+    if form.validate_on_submit(): #makes sure form is complete
         user = User.get_by_username(form.username.data)
         if user is None:
             errors.append("User not found.")

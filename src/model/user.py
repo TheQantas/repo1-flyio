@@ -1,6 +1,6 @@
 import uuid
 from peewee import *
-from flask_security import UserMixin, RoleMixin
+from flask_security import UserMixin
 
 user_db = SqliteDatabase('users.db')
 
