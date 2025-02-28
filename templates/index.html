@@ -23,7 +23,7 @@
     <div class="navigation">
         <a class="inventory" element="current">INVENTORY</a>
         <a class="reports">REPORTS</a>
-        <a class="account" img="icons/account">  ACCOUNT</a>
+        <a class="account" img="icons/account">  SIGN OUT</a>
     </div>
 
     <!--
@@ -51,8 +51,15 @@
     </td>
     {% endmacro %}
 
+    <div id="add_form">
+        {% block content %}
+        <button class="product-button" hx-get="/add" hx-trigger="click" hx-target="#add_form" hx-swap="outerHTML">
+            NEW PRODUCT
+        </button>
+        {% endblock %}
+    </div>
+
     <table>
-        <tr>
             <th>Name</th>
             <th>Inventory</th>
             <th>Price</th>
@@ -62,6 +69,7 @@
             <th>Days Left</th>
             <th>Item History</th>
         </tr>
+
         {% for product in product_list %}
         <tr>
             <td>{{ product.product_name }} </td>
@@ -81,6 +89,7 @@
             {% endif %}
             <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
             <td>
+                <!--this isn't in the design but ill keep it here (matthew)-->
                 <form id="del-item"
                     hx-delete="/delete/{{ product.get_id() }}"
                     hx-target="body"
@@ -94,13 +103,6 @@
         </tr>
         {% endfor %}
     </table>
-    <div id="add_form">
-        {% block content %}
-        <button hx-get="/add" hx-trigger="click" hx-target="#add_form" hx-swap="outerHTML">
-            ADD STUFF
-        </button>
-        {% endblock %}
-    </div>
 
 </body>
 
