@@ -2,8 +2,6 @@
     background-color: #ffffff;
     overflow: auto;
 }
-
-
 .navigation a {
     color: var(--hrdc-theme-dark-teal);
     cursor: pointer;
@@ -18,41 +16,35 @@
     position: relative;
     box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .2);
 }
-
 .navigation a:hover {
     background-color: var(--hrdc-theme-teal);
     border-color: var(--hrdc-theme-teal);
     color: white;
 }
-
 .navigation a:active {
     border: 3px solid black;
     border-color: var(--hrdc-theme-teal);
     background-color: #ffffff;
     color: var(--hrdc-theme-dark-teal);
 }
-
 .navigation a.inventory {
     text-decoration: underline;
     text-decoration-color: var(--hrdc-theme-yellow);
     text-underline-offset: 2px;
     text-decoration-thickness: 3px;
 }
-
 .navigation a.inventory:hover {
     text-decoration: underline;
     text-decoration-color: var(--hrdc-theme-teal);
     text-underline-offset: 2px;
     text-decoration-thickness: 3px;
 }
-
 .navigation a.inventory:active {
     text-decoration: underline;
     text-decoration-color: #ffffff;
     text-underline-offset: 2px;
     text-decoration-thickness: 3px;
 }
-
 .navigation a.account {
     float: right;
     text-align: right;
@@ -60,8 +52,57 @@
     right: auto;
 }
 
-.product-button
-{
+.urgency-placeholder {
+    height: 60px;
+    padding: var(--main-padding);
+    padding-bottom: 0;
+    gap: var(--main-padding);
+    width: calc(100% - var(--main-padding) * 2);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    background-color: orchid;
+}
+.urgency-placeholder > div {
+    background-color: cornflowerblue;
+}
+.scaffolding {
+    background-color: goldenrod;
+    padding: var(--main-padding);
+    gap: var(--main-padding);
+    width: calc(100% - var(--main-padding) * 2);
+    height: 500px;
+    display: grid;
+    grid-template-columns: 25% 1fr;
+    grid-template-rows: 50px 50px auto;
+}
+.filter-parent {
+    grid-row: 1 / -1;
+    background-color: tomato;
+}
+.action-parent {
+    background-color: chartreuse;
+}
+
+.inventory-table {
+    width: 100%;
+    background-color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.product-button {
     background-color: var(--hrdc-theme-teal);
     border: none;
     color: white;
@@ -75,7 +116,7 @@
     font-family: 'Gotham Bold';
 }
 
-table {
+table:not(.inventory-table) {
     width: 75%;
     align-items: center;
     overflow: hidden;
@@ -86,7 +127,9 @@ table {
     font-family: 'Gotham Book';
 }
 
-.urgent-underline, .not-urgent-underline, .less-urgent-underline {
+.urgent-underline,
+.not-urgent-underline,
+.less-urgent-underline {
     text-decoration: underline;
     text-decoration-thickness: 2px;
 }
@@ -140,7 +183,7 @@ tr:nth-child(even) {
     cursor: pointer;
 }
 
-td:hover > .in-cell-action {
+td:hover>.in-cell-action {
     visibility: visible;
 }
 

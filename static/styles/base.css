@@ -6,6 +6,15 @@
     --hrdc-theme-alert: hsl(350, 70%, 50%);
     --hrdc-theme-warning: var(--hrdc-theme-yellow);
     --hrdc-theme-okay: hsl(100, 70%, 40%);
+
+    --hrdc-theme-orange: rgb(242, 124, 70);
+    --hrdc-theme-yellow: hsl(39, 87%, 61%);
+    
+    --hrdc-theme-stock-urgent: var(--hrdc-theme-orange);
+    --hrdc-theme-stock-low: var(--hrdc-theme-yellow);
+    --hrdc-theme-stokc-okay: var(--hrdc-theme-teal);
+
+    --main-padding: 20px;
 }
 
 @font-face {
