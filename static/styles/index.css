@@ -246,6 +246,13 @@ td:hover>.in-cell-action {
 }
 */
 
+.navigation form.logout {
+    float: right;
+    text-align: right;
+    padding: 14px 16px;
+    right: auto;
+}
+
 @media screen and (max-width: 500px) {
     .navbar a {
         float: none;

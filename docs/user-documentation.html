@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link rel="stylesheet" href="styles/pico.cyan.css">
 </head>
 <body>
 <h2>User Documentation</h2>
@@ -33,6 +34,17 @@
         inventory.
         More complete documentation on using the software will be provided when the application gets further along in
         development.
+    </li>
+    <li>
+        <h4>Access Control</h4>
+        The three availabe users are
+        <ul>
+            <li>admin- has access to everything</li>
+            <li>staff- can only update inventory, can't add or delete items</li>
+            <li>volunteer- same as staff</li>
+        </ul>
+        On local deployments, the passwords are hardcoded in as <code>password</code> (for now, since
+        this is still in development).
     </li>
     <li>
         <h4>Reporting a bug</h4>
