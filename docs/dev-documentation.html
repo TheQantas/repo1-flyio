@@ -14,6 +14,18 @@
             and <code>pip install peewee</code> to get the proper dependencies
         </li>
         <li>
+            <h4>Access Control</h4>
+            The three availabe users are
+            <ul>
+                <li>admin- has access to everything</li>
+                <li>staff- can only update inventory, can't add or delete items</li>
+                <li>volunteer- same as staff</li>
+            </ul>
+            On local deployments, the passwords are hardcoded in as <code>password</code> (for now, since
+            this is still in development). If you are developing and sick of re-signing in after every 
+            server restart, consider temporarily changing <code>app.config['SECRET_KEY']</code> to a constant value.
+        </li>
+        <li>
             <h4>Obtaining the source code</h4>
             To get the source code on your machine, run <code>git clone https://github.com/423S25/project1</code>.
             We intend to implement a package manager, but for now, make sure to have Python 3 installed, with Flask and Peewee.
