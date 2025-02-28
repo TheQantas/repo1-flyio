@@ -14,7 +14,8 @@ login_manager.init_app(app)
 
 bcrypt = Bcrypt(app)
 
-app.config['SECRET_KEY'] = secrets.token_urlsafe()
+# app.config['SECRET_KEY'] = secrets.token_urlsafe()
+app.config['SECRET_KEY'] = "asdf"
 app.config["SESSION_PROTECTION"] = "strong"
 
 
