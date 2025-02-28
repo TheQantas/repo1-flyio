@@ -16,6 +16,7 @@
 
 <body>
 
+
     <div class="header">
         <img class="logo" src="icons/logo_white .png">
     </div>
@@ -23,7 +24,11 @@
     <div class="navigation">
         <a class="inventory" element="current">INVENTORY</a>
         <a class="reports">REPORTS</a>
-        <a class="account" img="icons/account">  ACCOUNT</a>
+        <a class="account" img="icons/account">ACCOUNT</a>
+        <form class="logout" action="/logout" method="post" style="display: flex; align-items: center; gap: 10px">
+            <p>Welcome, {{ user.username }}</p>
+            <button type="submit">Log Out</button>
+        </form>
     </div>
 
     <!--
@@ -40,7 +45,7 @@
             <img src="icons/pencil.svg" alt="Edit Icon" />
         </button>
         <form class="edit" style="display: none;" hx-patch="update/{{ endpoint }}/{{ id }}" hx-target="body">
-            <input onkeypress="onInputEnter(this, event)" name="{{ param }}" value="{{ value }}"/>
+            <input onkeypress="onInputEnter(this, event)" name="{{ param }}" value="{{ value }}" />
             <button onclick="event.preventDefault(); toStaticCell(this);" class="in-cell-action" title="Cancel Changes">
                 <img src="icons/close.svg" alt="Close Icon" />
             </button>
