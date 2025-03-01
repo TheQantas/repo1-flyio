@@ -1,22 +1,11 @@
 :root {
-    --hrdc-theme-teal: hsl(184, 71%, 27%);
-    --hrdc-theme-dark-teal: hsl(195, 100%, 16%);
+    --hrdc-theme-teal: #147278;
+    --hrdc-theme-dark-teal: #003e52;
+    --hrdc-theme-yellow: #a1a750;
 
-    --hrdc-theme-red: hsl(350, 70%, 50%);
-    --hrdc-theme-orange: rgb(242, 124, 70);
-    --hrdc-theme-yellow: hsl(39, 87%, 61%);
-    --hrdc-theme-green: hsl(100, 70%, 40%);
-    --hrdc-theme-light-grey: hsl(0, 0%, 85%);
-
-    --hrdc-theme-alert: var(--hrdc-theme-red);
+    --hrdc-theme-alert: hsl(350, 70%, 50%);
     --hrdc-theme-warning: var(--hrdc-theme-yellow);
-    --hrdc-theme-okay: var(--hrdc-theme-green);
-    
-    --hrdc-theme-stock-urgent: var(--hrdc-theme-orange);
-    --hrdc-theme-stock-low: var(--hrdc-theme-yellow);
-    --hrdc-theme-stock-okay: var(--hrdc-theme-teal);
-
-    --main-padding: 20px;
+    --hrdc-theme-okay: hsl(100, 70%, 40%);
 }
 
 @font-face {
@@ -56,28 +45,8 @@ body {
     width: 100%;
     background: var(--hrdc-theme-teal);
     color: white;
-    box-shadow: 0px 20px 40px 10px rgba(0,0,0,0.8);
-
 }
 
 .header img {
     height: 70px;
-}
-
-
-.box-shadow-small {
-    box-shadow: 0 3px 6px hsla(0, 0%, 20%, 0.3),
-        -3px 0 6px hsla(0, 0%, 20%, 0.3),
-        3px 0 6px hsla(0, 0%, 20%, 0.3);
-}
-
-.center-all {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-.center-vert {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
 }
