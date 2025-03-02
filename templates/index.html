@@ -18,7 +18,7 @@
 
 
     <div class="header">
-        <img class="logo" src="icons/logo_white .png">
+        <img class="logo" src="icons/logo_white.png">
     </div>
 
     <div class="navigation">
@@ -38,6 +38,50 @@
         param: the param/input name
         human_desc: a human-readable attribute name
     -->
+
+    <div class="urgency-placeholder">
+        <div></div>
+        <div></div>
+        <div></div>
+    </div>
+    <div class="scaffolding">
+        <div class="filter-parent"></div>
+        <div class="action-parent"></div>
+        <div class="inventory-table">
+            {% for product in product_list %}
+                <div class="inventory-table-row box-shadow-small">
+                    <img alt="Map" src="icons/map.svg" class="inventory-item-icon"/>
+                    <div class="center-vert">
+                        <span class="inventory-item-name">{{ product.product_name }}</span>
+                        <span>Item Category Placeholder</span>
+                    </div>
+                    <div class="center-all" style="padding: 0 25px;">
+                        <div class="inventory-item-bar">
+                            {% if product.inventory == 0 or product.ideal_stock == 0 %}
+                                <div class="inventory-item-no-stock"></div>
+                            {% elif product.inventory <= product.ideal_stock * 0.25 %}
+                                <div style="width: {{product.inventory/product.ideal_stock*100}}%; background-color: var(--hrdc-theme-stock-urgent);"></div>
+                            {% elif product.inventory <= product.ideal_stock * 0.5 %}
+                                <div style="width: {{product.inventory/product.ideal_stock*100}}%; background-color: var(--hrdc-theme-stock-low);"></div>
+                            {% elif product.inventory > product.ideal_stock %}
+                                <div style="width: 100%; background-color: var(--hrdc-theme-stock-okay);"></div>
+                            {% else %}
+                                <div style="width: {{product.inventory/product.ideal_stock*100}}%; background-color: var(--hrdc-theme-stock-okay);"></div>
+                            {% endif %}
+                        </div>
+                        <span style="font-weight: bold;">{{ product.inventory }}/{{ product.ideal_stock }}</span>
+                    </div>
+                    <div class="center-all">Last Updated {{ product.last_updated.strftime("%m/%d/%y") }}</div>
+                    <a class="inventory-item-link" href="/inventory-history?product-id={{ product.get_id() }}">
+                        <img src="icons/arrow_up_right.svg" alt="Arrow Up Right"/>
+                    </a>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+
     {% macro updatable_table_cell(endpoint, id, value, param, human_desc) %}
     <td>
         <span class="static">{{ value }}</span>
@@ -56,53 +100,10 @@
     </td>
     {% endmacro %}
 
-    <table>
-        <tr>
-            <th>Name</th>
-            <th>Inventory</th>
-            <th>Price</th>
-            <th>Unit Type</th>
-            <th>Ideal Stock</th>
-            <th>Last Updated</th>
-            <th>Days Left</th>
-            <th>Item History</th>
-        </tr>
-        {% for product in product_list %}
-        <tr>
-            <td>{{ product.product_name }} </td>
-            {{ updatable_table_cell('inventory', product.get_id(), product.inventory, 'stock', 'Inventory Level') }}
-            <td>{{ product.price }}</td>
-            <td>{{ product.unit_type }}</td>
-            <td>{{ product.ideal_stock }}</td>
-            <td>{{ product.last_updated }}</td>
-            {% if product.days_left == None %}
-            <td>Added Recently</td>
-            {% elif product.days_left <= 7 %}
-            <td><u class="urgent-underline">{{ product.days_left }}</u></td>
-            {% elif product.days_left > 7 and product.days_left <= 14 %}
-            <td><u class="less-urgent-underline">{{ product.days_left }}</u></td>
-            {% elif product.days_left >= 15 %}
-            <td><u class="not-urgent-underline">{{ product.days_left }}</u></td>
-            {% endif %}
-            <td><a href="/inventory-history?product-id={{ product.get_id() }}">View</a></td>
-            <td>
-                <form id="del-item"
-                    hx-delete="/delete/{{ product.get_id() }}"
-                    hx-target="body"
-                    hx-swap="outerHTML show:none"
-                    hx-confirm="Delete this item?"
-                    hx-trigger="click">
-                    <img src="/icons/closed-trash-can-svgrepo-com.svg" width ="20">
-                    <input type="hidden" name="view" value="{{ view }}">
-                </form>
-            </td>
-        </tr>
-        {% endfor %}
-    </table>
     <div id="add_form">
         {% block content %}
-        <button hx-get="/add" hx-trigger="click" hx-target="#add_form" hx-swap="outerHTML">
-            ADD STUFF
+        <button class="product-button" hx-get="/add" hx-trigger="click" hx-target="#add_form" hx-swap="outerHTML">
+            NEW PRODUCT
         </button>
         {% endblock %}
     </div>
