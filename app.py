@@ -1,3 +1,4 @@
+import os
 import secrets
 from flask import Flask, request, Response, render_template, redirect, abort, flash, url_for
 from src.model.product import Product, InventorySnapshot, db
@@ -17,6 +18,8 @@ bcrypt = Bcrypt(app)
 # app.config['SECRET_KEY'] = secrets.token_urlsafe()
 app.config['SECRET_KEY'] = "asdf"
 app.config["SESSION_PROTECTION"] = "strong"
+UPLOAD_FOLDER = os.path.join("static", "images")
+app.config['UPLOADED_IMAGES'] = UPLOAD_FOLDER
 
 
 with db:
@@ -79,10 +82,10 @@ def home():
     products = Product.urgency_rank()
     return render_template("index.html", product_list=products, user=current_user)
 
-@app.get("/inventory-history")
-@login_required #any user can access inventory history
-def inventory_history():
-    product_id = request.args.get('product-id', None, type=int)
+@app.get("/<int:product_id>")
+@login_required
+def inventory_history(product_id: int):
+
     if product_id is None: # TODO: have actual error page
         return abort(404, description=f"Could not find product id")
 
@@ -93,7 +96,6 @@ def inventory_history():
     snapshots = InventorySnapshot.all_of_product(product_id)
     usage = product.get_usage_per_day()
     days_until_out = product.get_days_until_out(usage)
-
     return render_template(
         "inventory_history.html",
         product=product,
@@ -101,7 +103,28 @@ def inventory_history():
         snapshot_count=len(snapshots),
         daily_usage=round(usage, 1) if usage is not None else None,
         days_until_out=round(days_until_out) if days_until_out is not None else None,
+        user=current_user,
+        filepath = product.image_path
     )
+
+
+@app.post("/upload/<int:product_id>")
+def upload_image(product_id: int):
+    if 'file' not in request.files:
+        return redirect('/' + str(product_id))
+
+    file = request.files['file']
+    product = Product.get_product(product_id)
+    if file.filename == '':
+        return redirect('/' + str(product_id))
+    filename = file.filename
+    product.set_img_path(filename)
+
+    file.save(os.path.join(app.config['UPLOADED_IMAGES'], filename))
+    return redirect("/" + str(product_id))
+
+
+
 
 
 @app.get("/add")
@@ -168,4 +191,4 @@ with app.app_context():
 
 if __name__ == '__main__':
 
-    app.run(port=5000, debug=True)
+    app.run(port=5000, debug=False)
