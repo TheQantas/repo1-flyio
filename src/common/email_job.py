@@ -1,9 +1,13 @@
+import os
+from dotenv import load_dotenv
 from sendgrid import SendGridAPIClient
 from sendgrid.helpers.mail import Mail
 from src.model.product import Product
 
+load_dotenv()
+
 APP_EMAIL = "hrdc.inventory@gmail.com"
-KEY = "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"
+KEY = os.environ.get("SENDGRID_KEY")
 
 class EmailJob():
     @staticmethod
