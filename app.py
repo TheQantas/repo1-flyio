@@ -1,4 +1,4 @@
-import secrets
+import os, secrets
 from flask import Flask, request, Response, render_template, redirect, abort, flash, url_for
 from src.model.product import Product, InventorySnapshot, db
 from src.model.user import User, user_db
@@ -7,6 +7,9 @@ from flask_bcrypt import Bcrypt
 
 from src.common.forms import LoginForm
 from src.common.email_job import EmailJob
+
+from dotenv import load_dotenv
+load_dotenv()
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
@@ -179,11 +182,11 @@ def update_settings():
 
 with app.app_context():
     if not User.get_by_username('admin'):
-        User.add_user('admin', bcrypt.generate_password_hash('password'))
+        User.add_user('admin', bcrypt.generate_password_hash(os.environ.get("ADMIN_PASSWORD")))
     if not User.get_by_username('staff'):
-        User.add_user('staff', bcrypt.generate_password_hash('password'))
+        User.add_user('staff', bcrypt.generate_password_hash(os.environ.get("STAFF_PASSWORD")))
     if not User.get_by_username('volunteer'):
-        User.add_user('volunteer', bcrypt.generate_password_hash('password'))
+        User.add_user('volunteer', bcrypt.generate_password_hash(os.environ.get("VOLUNTEER_PASSWORD")))
 
 if __name__ == '__main__':
 
