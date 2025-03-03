@@ -2,9 +2,11 @@ import secrets
 from flask import Flask, request, Response, render_template, redirect, abort, flash, url_for
 from src.model.product import Product, InventorySnapshot, db
 from src.model.user import User, user_db
-from src.common.forms import LoginForm
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
 from flask_bcrypt import Bcrypt
+
+from src.common.forms import LoginForm
+from src.common.email_job import EmailJob
 
 app = Flask(__name__, static_url_path='', static_folder='static')
 
@@ -113,7 +115,6 @@ def get_add():
     return render_template("add_form.html")
 
 
-#Simple add, just adds stuff + 1 works with htmx
 #TODO: make this a form
 @app.route("/add", methods=["POST"])
 @login_required
@@ -124,6 +125,7 @@ def add():
     if Product.get_product(request.form.get("product_name")) is None:
         Product.add_product(request.form.get("product_name"), int(request.form.get("inventory")), float(request.form.get("price")), request.form.get("unit_type"), int(request.form.get("ideal_stock")), None)
         Product.fill_days_left()
+        EmailJob.process_emails(User.get_by_username('admin').email)
         return redirect("/")
     else:
         abort(400)
@@ -156,7 +158,24 @@ def update_inventory(product_id: int):
         return abort(404, description=f"Could not find product {product_id}")
 
     product.update_stock(new_stock)
+    EmailJob.process_emails(User.get_by_username('admin').email)
     return redirect("/", 303)
+
+@app.get("/settings")
+@login_required
+def get_settings():
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can access admin settings')
+    return render_template("settings.html", user=current_user)
+
+@app.post("/settings")
+@login_required
+def update_settings():
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can access admin settings')
+    email = request.form.get("email")
+    User.get_by_username('admin').update_email(email)
+    return render_template("settings.html", user=current_user)
 
 with app.app_context():
     if not User.get_by_username('admin'):
