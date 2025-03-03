@@ -111,9 +111,9 @@ class Product(Model):
         product.delete_instance()
 
     def set_img_path(self, img_path: str):
-
         self.image_path = img_path
         self.save()
+
 
     # Sets the ideal stock to [`new_stock`] units
     def update_ideal_stock(self, new_stock: int):

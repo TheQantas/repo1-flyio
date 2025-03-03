@@ -11,6 +11,7 @@
     <title>HRDC Inventory Management System</title>
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/product.css">
     <script src="scripts/index.js"></script>
 </head>
 
@@ -31,20 +32,24 @@
         </form>
     </div>
 
-
+    <div class="image-box">
+        <label for="fileInput">
     {% if not filepath %}
     <!-- If the product.filepath is empty, show the form to upload an image -->
-    <form action="/upload/{{ product.get_id() }}" method="POST" enctype="multipart/form-data">
-        <label for="fileInput">Choose image:</label>
-        <input type="file" id="fileInput" name="file" accept="image/*" required>
-        <button type="submit">Upload Image</button>
-    </form>
-{% else %}
-    <!-- If the product.filepath is not empty, display the image -->
-    <div>
-        <img src="images/{{ filepath }}" />
+            <img src="icons/image-camera.svg" class="upload-trigger" />
+    {% else %}
+            <img src="images/{{ filepath }}" />
+    {% endif %}
+        </label>
     </div>
-{% endif %}
+    <form action="/upload/{{ product.get_id() }}" method="POST" enctype="multipart/form-data">
+        <input type="file" id="fileInput" name="file" accept="image/*" required>
+    </form>
+    <script>
+        document.getElementById('fileInput').addEventListener('change', function() {
+        this.form.submit();
+        });
+    </script>
 
 
 </body>

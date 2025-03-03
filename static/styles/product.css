@@ -1,0 +1,14 @@
+.image-box {
+            width: 249px;
+            height: 249px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #F5F5F5
+}
+.image-box img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: cover; /* Change to 'contain' if you want to see the full image */
+}
