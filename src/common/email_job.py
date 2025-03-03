@@ -21,7 +21,6 @@ class EmailJob():
                  {''.join([f"<li>{p.product_name}</li>" for p in products])} \
                  </ul>')
         try:
-            #sg = SendGridAPIClient(os.environ.get('SENDGRID_API_KEY')) #TODO
             sg = SendGridAPIClient(KEY)
             response = sg.send(message)
             print(response.status_code)
