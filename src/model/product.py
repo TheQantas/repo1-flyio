@@ -121,6 +121,18 @@ class Product(Model):
         self.last_updated = datetime.datetime.now()
         self.save()
 
+    def update_product(self, product_name: str, price: float, unit_type: str, ideal_stock: int):
+        self.product_name = product_name
+        self.price = price
+        self.unit_type = unit_type
+        self.ideal_stock = ideal_stock
+
+        self.last_updated = datetime.datetime.now()
+
+        self.save()
+
+
+
     # Sets the current available stock of a product to [`new_stock`] units
     def update_stock(self, new_stock: int):
         self.inventory = new_stock

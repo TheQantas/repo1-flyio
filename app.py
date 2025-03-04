@@ -167,19 +167,64 @@ def delete(product_id: int):
     return render_template("index.html", product_list=products, user=current_user)
 
 
-@app.route("/update/inventory/<int:product_id>", methods=["PATCH"])
+@app.route("/update/inventory/<int:product_id>", methods=["POST"])
 @login_required #any user can update inventory
 def update_inventory(product_id: int):
-    new_stock = request.form.get('stock', None, type=int)
-    if new_stock is None or new_stock < 0:
-        return abort(400, description="Stock count must be a positive integer")
+    if request.form.get('_method') == 'PATCH':
+        new_stock = request.form.get('stock', None, type=int)
+        if new_stock is None or new_stock < 0:
+            return abort(400, description="Stock count must be a positive integer")
 
+        product = Product.get_product(product_id)
+        if product is None:
+            return abort(404, description=f"Could not find product {product_id}")
+
+        product.update_stock(new_stock)
+        return redirect("/" + str(product_id), 303)
+    else:
+        return abort(405, description="Method Not Allowed")
+
+@app.route("/update/<int:product_id>", methods=["POST"])
+@login_required #admin only
+def update_all(product_id: int):
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can delete products')
+
+    if request.form.get('_method') == 'PATCH':
+        product = Product.get_product(product_id)
+        if product is None:
+            return abort(404, description=f"Could not find product {product_id}")
+
+        product_name = request.form.get("product_name")
+        price = request.form.get("price")
+        unit_type = request.form.get("unit_type")
+        ideal_stock = request.form.get("ideal_stock")
+
+        product.update_product(product_name, float(price), unit_type, int(ideal_stock))
+        Product.fill_days_left()
+        return redirect("/" + str(product_id), 303)
+    else:
+        return abort(405, description="Method Not Allowed")
+
+
+
+
+
+
+#MODALS
+@app.get("/load_update/<int:product_id>")
+def load_update(product_id: int):
     product = Product.get_product(product_id)
-    if product is None:
-        return abort(404, description=f"Could not find product {product_id}")
+    return render_template("modals/update_stock.html",
+                           product=product)
 
-    product.update_stock(new_stock)
-    return redirect("/", 303)
+@app.get("/load_update_all/<int:product_id>")
+def load_update_all(product_id: int):
+    product = Product.get_product(product_id)
+    return render_template("modals/update_all.html",
+                           product=product)
+
+
 
 with app.app_context():
     if not User.get_by_username('admin'):
