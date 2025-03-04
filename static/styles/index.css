@@ -1,48 +1,26 @@
-    padding-left: var(--pico-spacing);
-}
-
-@media (min-width: 576px) {
-    .container {
-        max-width: 510px;
-        padding-right: 0;
-        padding-left: 0;
-    }
-}
-
-@media (min-width: 768px) {
-    .container {
-        max-width: 700px;
-    }
-}
-
-@media (min-width: 1024px) {
-    .container {
-        max-width: 950px;
-    }
-}
-
-@media (min-width: 1280px) {
-    .container {
-        max-width: 1200px;
-    }
-}
-
-@media (min-width: 1536px) {
-    .container {
-        max-width: 1450px;
-    }
-}
-
 .navigation {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 10px;
+    padding: 10px;
     background-color: #ffffff;
-    overflow: auto;
+    width: fit-content;
 }
+
+.navigation form {
+    display: flex;
+    align-items: center;
+}
+
 
 .navigation button {
+    flex-grow: 1;
+    text-align: center;
+    padding: 10px 16px;
     color: var(--hrdc-theme-dark-teal);
     cursor: pointer;
-    text-align: center;
-    padding: 14px 16px;
+
     font-size: 10.5px;
     font-family: 'Gotham Book';
     font-weight: normal;
