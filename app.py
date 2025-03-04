@@ -178,7 +178,7 @@ def update_settings():
         return abort(401, description='Only admins can access admin settings')
     email = request.form.get("email")
     User.get_by_username('admin').update_email(email)
-    return render_template("settings.html", user=current_user)
+    return redirect("/settings")
 
 with app.app_context():
     if not User.get_by_username('admin'):
