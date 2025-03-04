@@ -22,12 +22,12 @@
     </div>
 
     <div class="navigation">
-        <a class="inventory" element="current">INVENTORY</a>
-        <a class="reports">REPORTS</a>
-        <a class="account" img="icons/account">ACCOUNT</a>
-        <form class="logout" action="/logout" method="post" style="display: flex; align-items: center; gap: 10px">
-            <p>Welcome, {{ user.username }}</p>
-            <button type="submit">Log Out</button>
+        <form class="inventory">
+            <button type="submit" element="current">INVENTORY</button>
+        <form class="reports">
+            <button type="submit">REPORTS</button>
+        <form class="logout" img="icons/account" action="/logout" method="post" style="display: flex; align-items: center; gap: 10px">
+            <button type="submit" element="logout">SIGN OUT</button>
         </form>
     </div>
 
@@ -38,6 +38,21 @@
         param: the param/input name
         human_desc: a human-readable attribute name
     -->
+
+      <input class="form-control" type="search"
+             name="search" placeholder="SEARCH INVENTORY"
+             hx-post="/search"
+             hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load"
+             hx-target="#search-results"
+             hx-indicator=".htmx-indicator">
+
+    <div id="add_form">
+        {% block content %}
+        <button class="product-button" hx-get="/add" hx-trigger="click" hx-target="#add_form" hx-swap="outerHTML">
+            NEW PRODUCT
+        </button>
+        {% endblock %}
+    </div>
 
     <div class="urgency-placeholder">
         <div></div>
@@ -99,14 +114,6 @@
         </form>
     </td>
     {% endmacro %}
-
-    <div id="add_form">
-        {% block content %}
-        <button class="product-button" hx-get="/add" hx-trigger="click" hx-target="#add_form" hx-swap="outerHTML">
-            NEW PRODUCT
-        </button>
-        {% endblock %}
-    </div>
 
 </body>
 

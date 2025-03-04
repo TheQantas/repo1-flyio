@@ -2,7 +2,8 @@
     background-color: #ffffff;
     overflow: auto;
 }
-.navigation a {
+
+.navigation button {
     color: var(--hrdc-theme-dark-teal);
     cursor: pointer;
     text-align: center;
@@ -16,40 +17,85 @@
     position: relative;
     box-shadow: 0 2px 2px -2px rgba(0, 0, 0, .2);
 }
-.navigation a:hover {
+
+.navigation button:hover {
     background-color: var(--hrdc-theme-teal);
     border-color: var(--hrdc-theme-teal);
     color: white;
 }
-.navigation a:active {
+
+.navigation button:active {
     border: 3px solid black;
     border-color: var(--hrdc-theme-teal);
     background-color: #ffffff;
     color: var(--hrdc-theme-dark-teal);
 }
-.navigation a.inventory {
+
+.navigation button.current {
     text-decoration: underline;
     text-decoration-color: var(--hrdc-theme-yellow);
     text-underline-offset: 2px;
     text-decoration-thickness: 3px;
 }
-.navigation a.inventory:hover {
+
+.navigation button.current:hover {
     text-decoration: underline;
     text-decoration-color: var(--hrdc-theme-teal);
     text-underline-offset: 2px;
     text-decoration-thickness: 3px;
 }
-.navigation a.inventory:active {
+
+.navigation button.current:active {
     text-decoration: underline;
     text-decoration-color: #ffffff;
     text-underline-offset: 2px;
     text-decoration-thickness: 3px;
 }
-.navigation a.account {
+
+.navigation button.logout {
     float: right;
     text-align: right;
     padding: 14px 16px;
     right: auto;
+}
+
+.form-control
+{
+    padding: 14px 500px;
+    text-align: left;
+    font-family: 'Gotham Book';
+    font-size: 14px;
+    font-weight: bold;
+    color: #B2B4B5;
+    background-color: #f5f5f5;
+    box-shadow: 2px 4px 4px 2px rgba(0, 0, 0, 0.2) inset;
+    flex-shrink: 0;
+    text-transform: uppercase;
+}
+
+.product-button {
+    background-color: var(--hrdc-theme-teal);
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 10px 30px;
+    font-weight: bold;
+    font-family: 'Gotham Book';
+}
+
+.product-button:hover
+{
+    background-color: var(--hrdc-theme-green-yellow);
+    border: none;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    padding: 10px 30px;
+    font-weight: bold;
+    font-family: 'Gotham Book';
 }
 
 .urgency-placeholder {
@@ -62,9 +108,11 @@
     grid-template-columns: repeat(3, 1fr);
     background-color: orchid;
 }
+
 .urgency-placeholder > div {
     background-color: cornflowerblue;
 }
+
 .scaffolding {
     display: inline-grid;
     background-color: goldenrod;
@@ -74,10 +122,12 @@
     grid-template-columns: 25% 1fr;
     grid-template-rows: 50px auto;
 }
+
 .filter-parent {
     grid-row: 1 / -1;
     background-color: tomato;
 }
+
 .action-parent {
     background-color: chartreuse;
 }
@@ -89,34 +139,41 @@
     font-family: 'Gotham', sans-serif;
     font-size: 0.8em;
 }
+
 .inventory-table-row {
     height: 60px;
     display: grid;
     grid-template-columns: 60px auto 1fr auto 60px;
     column-gap: 20px;
 }
+
 .inventory-table-row:not(:last-child) {
     margin-bottom: 10px;
 }
+
 .inventory-item-icon {
     height: 50px;
     width: 50px;
     margin: 5px;
 }
+
 .inventory-item-name {
     text-transform: uppercase;
     font-weight: bold;
     font-size: 1.2em;
 }
+
 .inventory-item-bar {
     width: 100%;
     background-color: var(--hrdc-theme-light-grey);
     height: 6px;
     margin-right: 10px;
 }
+
 .inventory-item-bar > div {
     height: inherit;
 }
+
 .inventory-item-link {
     margin: 10px;
     height: 40px;
@@ -124,13 +181,16 @@
     border-radius: 5px;
     transition: 200ms;
 }
+
 .inventory-item-link:hover {
     background-color: var(--hrdc-theme-light-grey);
 }
+
 .inventory-item-link > img {
     height: inherit;
     width: inherit;
 }
+
 .inventory-item-no-stock {
     width: 100%;
     background: repeating-linear-gradient(
@@ -140,27 +200,6 @@
         var(--hrdc-theme-light-grey) 5px,
         var(--hrdc-theme-light-grey) 10px
     );
-}
-
-.product-button {
-    background-color: var(--hrdc-theme-teal);
-    border: none;
-    color: white;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 14px;
-    padding: 10px 32px;
-    margin-top: 50px;
-    margin-left: 1275px;
-    font-family: 'Gotham Bold';
-}
-
-.navigation form.logout {
-    float: right;
-    text-align: right;
-    padding: 14px 16px;
-    right: auto;
 }
 
 @media screen and (max-width: 500px) {

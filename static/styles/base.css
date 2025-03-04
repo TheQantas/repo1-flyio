@@ -1,6 +1,7 @@
 :root {
-    --hrdc-theme-teal: hsl(184, 71%, 27%);
+    --hrdc-theme-teal: hsl(184, 71%, 27%); 
     --hrdc-theme-dark-teal: hsl(195, 100%, 16%);
+    --hrdc-theme-green-yellow: hsl(64 35.2% 48.4%);
 
     --hrdc-theme-red: hsl(350, 70%, 50%);
     --hrdc-theme-orange: rgb(242, 124, 70);
