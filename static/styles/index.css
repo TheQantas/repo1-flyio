@@ -61,7 +61,7 @@
 
 .form-control
 {
-    padding: 14px 500px;
+    padding: 15px 290px;
     text-align: left;
     font-family: 'Gotham Book';
     font-size: 14px;
@@ -79,10 +79,11 @@
     color: white;
     text-align: center;
     text-decoration: none;
-    font-size: 12px;
-    padding: 10px 30px;
+    font-size: 14px;
+    padding: 15px 30px;
     font-weight: bold;
     font-family: 'Gotham Book';
+    margin-left: 5px;
 }
 
 .product-button:hover
@@ -92,8 +93,8 @@
     color: white;
     text-align: center;
     text-decoration: none;
-    font-size: 12px;
-    padding: 10px 30px;
+    font-size: 14px;
+    padding: 15px 30px;
     font-weight: bold;
     font-family: 'Gotham Book';
 }

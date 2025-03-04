@@ -41,21 +41,6 @@
         human_desc: a human-readable attribute name
     -->
 
-      <input class="form-control" type="search"
-             name="search" placeholder="SEARCH INVENTORY"
-             hx-post="/search"
-             hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load"
-             hx-target="#search-results"
-             hx-indicator=".htmx-indicator">
-
-    <div id="add_form">
-        {% block content %}
-        <button class="product-button" hx-get="/add" hx-trigger="click" hx-target="#add_form" hx-swap="outerHTML">
-            NEW PRODUCT
-        </button>
-        {% endblock %}
-    </div>
-
     <div class="urgency-placeholder">
         <div></div>
         <div></div>
@@ -64,12 +49,18 @@
     <div class="scaffolding">
         <div class="filter-parent"></div>
         <div class="action-parent">
+
             <input class="form-control" type="search"
              name="search" placeholder="SEARCH INVENTORY"
              hx-post="/search"
              hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load"
              hx-target="#search-results"
              hx-indicator=".htmx-indicator">
+
+             <button class="product-button" hx-get="/add" hx-trigger="click" hx-target="#add_form" hx-swap="outerHTML">
+                NEW PRODUCT
+            </button>
+
         </div>
         <div class="inventory-table">
             {% for product in product_list %}
