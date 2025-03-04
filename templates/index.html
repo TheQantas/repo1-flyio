@@ -24,8 +24,10 @@
     <div class="navigation">
         <form class="inventory">
             <button type="submit" element="current">INVENTORY</button>
+        </form>
         <form class="reports">
             <button type="submit">REPORTS</button>
+        </form>
         <form class="logout" img="icons/account" action="/logout" method="post" style="display: flex; align-items: center; gap: 10px">
             <button type="submit" element="logout">SIGN OUT</button>
         </form>
@@ -61,7 +63,14 @@
     </div>
     <div class="scaffolding">
         <div class="filter-parent"></div>
-        <div class="action-parent"></div>
+        <div class="action-parent">
+            <input class="form-control" type="search"
+             name="search" placeholder="SEARCH INVENTORY"
+             hx-post="/search"
+             hx-trigger="input changed delay:500ms, keyup[key=='Enter'], load"
+             hx-target="#search-results"
+             hx-indicator=".htmx-indicator">
+        </div>
         <div class="inventory-table">
             {% for product in product_list %}
                 <div class="inventory-table-row box-shadow-small">
