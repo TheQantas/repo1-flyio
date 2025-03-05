@@ -29,7 +29,7 @@ class EmailJob():
 
     @staticmethod
     def process_emails(admin_email: str):
-        if len(admin_email) > 0:
+        if admin_email and len(admin_email) > 0:
             products = Product.products_leq_quarter()
             if len(products) > 0:
                 EmailJob.send_email(products, admin_email)
