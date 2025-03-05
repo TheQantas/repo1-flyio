@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="styles/pico.cyan.css">
+</head>
+<body>
+    <h2>Developer Documentation</h2>
+    <ul>
+        <li>
+            <h4>Running Project Currently</h4>
+            To run the project navigate to the project directory <code>"/C:/Path/To/Directory/repo1</code>.
+            Then run <code>python app.py</code> for now you will need to run <code>pip install flask</code>
+            and <code>pip install peewee</code> to get the proper dependencies
+        </li>
+        <li>
+            <h4>Access Control</h4>
+            The three availabe users are
+            <ul>
+                <li>admin- has access to everything</li>
+                <li>staff- can only update inventory, can't add or delete items</li>
+                <li>volunteer- same as staff</li>
+            </ul>
+            On local deployments, the passwords are hardcoded in as <code>password</code> (for now, since
+            this is still in development). If you are developing and sick of re-signing in after every 
+            server restart, consider temporarily changing <code>app.config['SECRET_KEY']</code> to a constant value.
+        </li>
+        <li>
+            <h4>Obtaining the source code</h4>
+            To get the source code on your machine, run <code>git clone https://github.com/423S25/project1</code>.
+            We intend to implement a package manager, but for now, make sure to have Python 3 installed, with Flask and Peewee.
+        </li>
+        <li>
+            <h4>Project Structure</h4>
+            The directory structure is <code>/docs</code> for the documentation, <code>/src/model</code> for the database code, and <code>/templates</code> for the rendered pages.
+            <code>app.py</code> (the web server) is located in the root directory.
+        </li>
+        <li>
+            <h4>Building</h4>
+            At this time, no building is needed. These docs will be updated when we implement a package manager.
+        </li>
+        <li>
+            <h4>Testing</h4>
+            Developers should be sure to test
+            the core functionality of the application with every contribution. At least one approving reviewer should do
+            a code review and test each contribution.
+        </li>
+        <li>
+            <h4>Automated Building and Testing</h4>
+            At this time, we don't have any automated building or testing set up. These docs will be updated when we do.
+        </li>
+        <li>
+            <h4>How to release a new version</h4>
+            To release a new version of this software, update the code and send the updated code to the server.
+        </li>
+        <li>
+            <h4>Bug Tracking</h4>
+            To view a list of current and resolved bugs, go to our github issues <a href="https://github.com/423S25/project1/issues">here</a>.
+        </li>
+        <li>
+            <h4>Additional considerations</h4>
+            The code for this project is stored <a href="https://github.com/423S25/project1">here</a>.
+            Developers should provide meaningful comments when contributing source code.
+        </li>
+        <li>
+            <h4>Contribution</h4>
+            This is the general expected workflow for adding a feature to the project:
+            <ol>
+                <li>make a branch on github</li>
+                <li><code>git pull</code> on the main branch</li>
+                <li><code>git checkout branch-name</code></li>
+                <li>do your work, add your feature, you can save your changes to your branch</li>
+                <li>push your changes (make sure you are on your branch, not main)</li>
+                <li>on github, make a pull request to merge your changes into the main branch (resolve any merge conflicts)</li>
+                <li>tag someone for a review</li>
+                <li>once someone approves, merge it</li>
+            </ol>
+        </li>
+    </ul>
+    <p>
+        <a href="user-documentation">User Documentation</a>
+    </p>
+    <p>
+        <a href="https://423s25.github.io/repo1/">Index Documentation</a>
+    </p>
+</body>
+</html>
