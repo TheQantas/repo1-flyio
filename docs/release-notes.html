@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/global-docs.css">
+    <title>Release Notes | Group 1 Product Website</title>
+
+    <style>
+        .new {
+            color: var(--hrdc-theme-green);
+        }
+        .fixed, .changed {
+            color: var(--hrdc-theme-light-teal);
+        }
+        .removed {
+            color: var(--hrdc-theme-red);
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="header-color">
+        <h1>Release Notes</h1>
+        <h2>Last Updated 05 Mar 2025</h2>
+
+        <div class="navigation-bar">
+            <a href="./index.html">
+                <img src="./images/home-icon-teal.svg" alt="Home Icon">
+                <img src="./images/home-icon-white.svg" alt="Home Icon">
+            </a>
+            <a href="./user-documentation.html">User Docs</a>
+            <a href="./dev-documentation.html">Dev Docs</a>
+            <a class="current" href="./release-notes.html">Release Notes</a>
+            <a href="./faq.html">FAQs</a>
+        </div>
+    </div>
+
+    <main>
+        <h3>Beta Release <span class="small-text">07 Mar 2025</span></h3>
+        <ul>
+            <li><span class="removed">Removed:</span> Ability to delete an item from the main table (This is now in each item's breakdown page, and can be accessed by administrators only)</li>
+            <li><span class="changed">Changed:</span> Stock warnings are now based on percentage of ideal stock instead of days of stock remaining</li>
+            <li><span class="new">New:</span> Styled main table of inventory levels/items (thanks designers!)</li>
+            <li><span class="new">New:</span> Ability to sign in as users of different permissions</li>
+        </ul>
+
+
+
+        <h3>Alpha Release <span class="small-text">21 Feb 2025</span></h3>
+        <ul>
+            <li><span class="new">New:</span> Fancy styling for parts of the site (thanks designers!)</li>
+            <li><span class="new">New:</span> Start of access control for users</li>
+            <li><span class="new">New:</span> Ability to add and delete product from tracking</li>
+            <li><span class="new">New:</span> Basic input sanitization for add, update, and delete stock level endpoints</li>
+            <li><span class="new">New:</span> Ability to track inventory levels over time</li>
+            <li><span class="new">New:</span> Calculations for how long remaining stock should last</li>
+            <li><span class="new">New:</span> Warning indicators for when an item will soon run out of stock</li>
+        </ul>
+
+
+
+        <h3>Zero-Feature Release <span class="small-text">07 Feb 2025</span></h3>
+        <ul>
+            <li><span class="new">New:</span> Project structure and routes added</li>
+            <li><span class="new">New:</span> Code moved to final GitHub repository</li>
+            <li><span class="new">New:</span> Documentation started</li>
+        </ul>
+    </main>
+</body>
+
+</html>
