@@ -1,0 +1,115 @@
+:root {
+    --hrdc-theme-teal: hsl(184, 71%, 27%);
+    --hrdc-theme-dark-teal: hsl(195, 100%, 16%);
+    --hrdc-theme-olive: hsl(64, 35%, 47%);
+
+    --hrdc-theme-red: hsl(350, 70%, 50%);
+    --hrdc-theme-orange: rgb(242, 124, 70);
+    --hrdc-theme-yellow: hsl(39, 87%, 61%);
+    --hrdc-theme-green: hsl(100, 70%, 40%);
+    --hrdc-theme-light-grey: hsl(0, 0%, 85%);
+
+    --hrdc-theme-alert: var(--hrdc-theme-red);
+    --hrdc-theme-warning: var(--hrdc-theme-yellow);
+    --hrdc-theme-okay: var(--hrdc-theme-green);
+    
+    --hrdc-theme-stock-urgent: var(--hrdc-theme-orange);
+    --hrdc-theme-stock-low: var(--hrdc-theme-yellow);
+    --hrdc-theme-stock-okay: var(--hrdc-theme-teal);
+
+    --main-padding: 20px;
+}
+
+@font-face {
+    font-family: 'Gotham Bold';
+    src: url('../fonts/Gotham-Bold.otf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham Book';
+    src: url('../fonts/Gotham-Book.otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham Bold Italic';
+    src: url('../fonts/Gotham-BoldItalic.otf');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gotham Book Italic';
+    src: url('../fonts/Gotham-BookItalic.otf');
+    font-weight: 400;
+    font-style: normal;
+}
+
+body {
+    padding: 20px;
+    margin: 0;
+}
+
+.header {
+    text-align: center;
+    width: 100%;
+    background: var(--hrdc-theme-teal);
+    color: white;
+    box-shadow: 0px 20px 40px 10px rgba(0,0,0,0.8);
+
+}
+
+.header img {
+    height: 70px;
+}
+
+
+.box-shadow-small {
+    box-shadow: 0 3px 6px hsla(0, 0%, 20%, 0.3),
+        -3px 0 6px hsla(0, 0%, 20%, 0.3),
+        3px 0 6px hsla(0, 0%, 20%, 0.3);
+}
+
+.center-all {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.center-vert {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+
+
+
+.doc-navigation {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    text-align: center;
+    font-family: 'Gotham Book', sans-serif;
+    color: white;
+}
+.doc-navigation > a {
+    border-radius: 2px;
+}
+.doc-navigation> a:first-child {
+    background-color: var(--hrdc-theme-olive);
+}
+
+h1 {
+    color: var(--hrdc-theme-dark-teal);
+    font-family: 'Gotham Bold', sans-serif;
+}
+h2 {
+    color: var(--hrdc-theme-olive);
+    font-family: 'Gotham Book', sans-serif;
+}
+p, ul, ol {
+    font-family: 'Gotham Book', sans-serif;
+}
