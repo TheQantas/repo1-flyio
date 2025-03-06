@@ -174,6 +174,10 @@ class Product(Model):
     def mark_notified(self):
         self.notified = True
         self.save()
+    
+    def mark_not_notified(self):
+        self.notified = False
+        self.save()
 
         
     

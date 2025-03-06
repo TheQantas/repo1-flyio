@@ -178,6 +178,7 @@ def update_inventory(product_id: int):
             return abort(404, description=f"Could not find product {product_id}")
 
         product.update_stock(new_stock)
+        product.mark_not_notified()
         EmailJob.process_emails(User.get_by_username('admin').email)
         return redirect("/" + str(product_id), 303)
     else:
@@ -201,6 +202,8 @@ def update_all(product_id: int):
 
         product.update_product(product_name, float(price), unit_type, int(ideal_stock))
         Product.fill_days_left()
+        product.mark_not_notified()
+        EmailJob.process_emails(User.get_by_username('admin').email)
         return redirect("/" + str(product_id), 303)
     else:
         return abort(405, description="Method Not Allowed")
