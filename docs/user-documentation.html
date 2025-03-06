@@ -1,62 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <link rel="stylesheet" href="styles/pico.cyan.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/global-docs.css">
+    <title>User Documentation | Group 1 Product Website</title>
 </head>
-<body>
-<h2>User Documentation</h2>
 
-<h3>Note: this is a alpha release, users without experience with web development software cannot access it properly</h3>
-<ul>
-    <li>
-        <h4>Description</h4>
-        This is an inventory management system for the HRDC warming center, It allows users to create new products to
-        add to the inventory, update stock, price, image, ect, remove products from inventory, and display the current
-        inventory. Compared to other software like Microsoft Excel, this will be designed specifically for HRDC and be
-        easier to use than more generalized software. This will streamline the process of updating and tracking
-        inventory at the HRDC warming center.
-    </li>
-    <li>
-        <h4>Accessing the software</h4>
-        This is a Create, Read, Update, and Delete web application. A user will be able to access it via a url, but for
-        now it can be run locally.
-    </li>
-    <li>
-        <h4>Starting the software</h4>
-        The software can be run by entering the URL into a browser. For a local deployment, refer to the developer
-        documentation.
-    </li>
-    <li>
-        <h4>Using the software</h4>
-        There is an intuitive user interface that will allow users to create, read, update, and delete entries in the
-        inventory.
-        More complete documentation on using the software will be provided when the application gets further along in
-        development.
-    </li>
-    <li>
-        <h4>Access Control</h4>
-        The three availabe users are
-        <ul>
-            <li>admin- has access to everything</li>
-            <li>staff- can only update inventory, can't add or delete items</li>
-            <li>volunteer- same as staff</li>
-        </ul>
-        On local deployments, the passwords are hardcoded in as <code>password</code> (for now, since
-        this is still in development).
-    </li>
-    <li>
-        <h4>Reporting a bug</h4>
-        If a bug needs to be reported, a description of the bug can be submitted to Cody Hager (PM):
-        chager004@gmail.com.
-    </li>
-</ul>
-<p>
-    <a href="https://423s25.github.io/repo1/">Index Documentation</a>
-</p>
-<p>
-    <a href="dev-documentation">Developer Documentation</a>
-</p>
+<body>
+
+    <div class="header-color">
+        <h1>User Documentation</h1>
+        <h2>Last Updated 05 Mar 2025</h2>
+
+        <div class="navigation-bar">
+            <a href="./index.html">
+                <img src="./images/home-icon-teal.svg" alt="Home Icon">
+                <img src="./images/home-icon-white.svg" alt="Home Icon">
+            </a>
+            <a class="current" href="./user-documentation.html">User Docs</a>
+            <a href="./dev-documentation.html">Dev Docs</a>
+            <a href="./release-notes.html">Release Notes</a>
+            <a href="./faq.html">FAQs</a>
+        </div>
+    </div>
+
+    <main>
+        <h4 style="color: var(--hrdc-theme-alert);">Note: This is an alpha release&mdash;users
+            without experience with web development software may not be able to access it properly
+        </h4>
+
+
+
+        <h3>Starting the software</h3>
+        <p>The software can be run by entering the URL into a browser.
+            For a local deployment, refer to the <a href="./dev-documentation.html#getting-started">developer
+                documentation</a>.
+        </p>
+
+
+
+        <h3>Using the software</h3>
+        <p>There is an intuitive user interface that will allow users to create, read, update,
+            and delete entries in the inventory.
+            More complete documentation on using the software will be provided when the application
+            gets further along in development.
+        </p>
+
+
+
+        <h3>Reporting a bug</h3>
+        <p>If a bug needs to be reported, a description of the bug can be submitted to Cody Hager (PM):
+            <a target="_blank" href="mailto:chager004@gmail.com">chager004@gmail.com</a>.
+        </p>
+    </main>
 </body>
+
 </html>
