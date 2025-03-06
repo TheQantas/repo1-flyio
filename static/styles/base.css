@@ -58,8 +58,7 @@ body {
     color: white;
     display: flex;
     align-content: center;
-    padding: 10px 20px;
-
+    padding: 1rem 1rem;
 }
 
 .header img {
