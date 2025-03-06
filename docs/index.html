@@ -1,39 +1,49 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles/pico.cyan.css">
+    <link rel="stylesheet" href="styles/global-docs.css">
     <title>Group 1 Product Website</title>
 </head>
-<body>
-    <h1>Group One Product Website</h1>
 
-    <h2>Product Info</h2>
-        <p>Admin access is a Create, Read, Update, and Destroy (CRUD) web application to help manage inventory items.
-            Currently, the system is capable of allowing users to add items and delete items from the inventory.
-            Users can change the current stock, other items will be available to change by the admin in later additions.
-            Log in and access control are a work in progress.
-            Styling will continue to be added as we go.
-            The inventory orders itself by how soon it will be till an item is out of stock.
-            Items that will be out in under 7 days have a red underline</p>
-    <h2>In the next release we expect to have</h2>
+<body>
+    <div class="header-color">
+        <h1>Group 1 Project Site</h1>
+        <h2>HRDC Inventory Management System</h2>
+
+        <div class="navigation-bar">
+            <a class="current" href="./index.html">
+                <img src="./images/home-icon-teal.svg" alt="Home Icon">
+                <img src="./images/home-icon-white.svg" alt="Home Icon">
+            </a>
+            <a href="./user-documentation.html">User Docs</a>
+            <a href="./dev-documentation.html">Dev Docs</a>
+            <a href="./release-notes.html">Release Notes</a>
+            <a href="./faq.html">FAQs</a>
+        </div>
+    </div>
+
+    <main>
+        <h3 style="margin-top: 0;">About This Project</h3>
+        <p>This is a system to track the inventory of donated and purchased items for the HRDC in southwest Montana.
+            
+        </p>
+
+        <h3>Features</h3>
         <ul>
-            <li>Improved Access control</li>
-            <li>Better indicators products are almost out of stock</li>
-            <li>Improved HRDC branding</li>
-            <li>Help making reports on inventory data</li>
-            <li>Update on all item values</li>
+            <li>Administrators can add new items and can update existing items</li>
+            <li>Any signed in user can update the current inventory level</li>
+            <li>Alerts for low inventory levels in dashboard and via email</li>
         </ul>
-        It is written using Flask (python) for a web server, Peewee ORM for data storage, and
-        HTML with HTMX for a user interface.
-    <h2>We also discussed doing a seperate application for staff and volunteers to use.</h2>
-        <img src="images/uml.drawio.png">
-    <p>
-        <a href="user-documentation">User Documentation</a>
-    </p>
-    <p>
-        <a href="dev-documentation">Developer Documentation</a>
-    </p>
+
+        <h3>Reporting Problems</h3>
+        <p>Problems can be reported by making a GitHub issue
+            <a href="https://github.com/423S25/repo1/issues">here</a>.
+        </p>
+    </main>
+
 </body>
+
 </html>

@@ -217,6 +217,10 @@ def load_update_all(product_id: int):
     product = Product.get_product(product_id)
     return render_template("modals/update_all.html",
                            product=product)
+@app.get("/load_add")
+def load_add():
+    return render_template("modals/add.html")
+
 
 @app.get("/settings")
 @login_required

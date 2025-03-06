@@ -35,9 +35,11 @@
                hx-target="#search-results"
                hx-indicator=".htmx-indicator">
 
-        <button class="product-button" hx-get="/add" hx-trigger="click" hx-target="#add_form" hx-swap="outerHTML">
+        <button class="product-button" hx-get="/load_add" hx-target="body" hx-swap="beforeend">
             NEW PRODUCT
         </button>
+        {% block add %}
+        {% endblock %}
 
     </div>
     <div class="inventory-table">
@@ -92,3 +94,4 @@
         </form>
     </td>
 {% endmacro %}
+
