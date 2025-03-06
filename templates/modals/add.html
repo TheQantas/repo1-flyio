@@ -1,5 +1,7 @@
-{% block content %}
-<form hx-post="/add" hx-target="body" hx-swap="outerHTML">
+<div id="modal" _="on closeModal add .closing then wait for animationend then remove me">
+	<div class="modal-underlay" _="on click trigger closeModal"></div>
+	<div class="modal-content">
+		<form hx-post="/add" hx-target="body" hx-swap="outerHTML">
     <label for="product_name">Product Name:</label>
     <input type="text" id="product_name" name="product_name" required><br>
 
@@ -18,5 +20,9 @@
 
     <button hx-post="/add" hx-target="body" hx-swap="outerHTML">Submit</button>
     <button hx-get="/" hx-target="body" hx-swap="outerHTML">Cancel</button>
-</form>
-{% endblock %}
+    </form>
+		<br>
+		<br>
+		<button class="btn danger" _="on click trigger closeModal">Close</button>
+	</div>
+</div>
