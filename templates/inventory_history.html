@@ -26,7 +26,7 @@
         <a href="/"><- Back to Home</a>
         <a class="inventory" element="current">INVENTORY</a>
         <a class="reports">REPORTS</a>
-        <a class="account" img="icons/account">ACCOUNT</a>
+        <a href="/settings" class="account" img="icons/account" href="">ADMIN SETTINGS</a>
         <form class="logout" action="/logout" method="post" style="display: flex; align-items: center; gap: 10px">
             <p>Welcome, {{ user.username }}</p>
             <button type="submit">Log Out</button>
