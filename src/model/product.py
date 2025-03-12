@@ -90,6 +90,7 @@ class Product(Model):
     def delete_product(cls, product_id):
         product = Product.get_product(product_id)
         product.delete_instance()
+        InventorySnapshot.delete_snapshots_for_product(product_id)
 
     
     ########################################
@@ -258,6 +259,10 @@ class InventorySnapshot(Model):
             donation=donation
         )
         return snapshot
+    
+    @staticmethod
+    def delete_snapshots_for_product(product_id: int):
+        InventorySnapshot.delete().where(InventorySnapshot.product_id == product_id).execute()
     
 
 
