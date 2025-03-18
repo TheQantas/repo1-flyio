@@ -55,7 +55,7 @@
     </div>
     <div class="column">
     <h1>{{ product.product_name }}</h1>
-    <h2>Item Category Placeholder</h2>
+    <h2>{{product.category.name}}</h2>
     <h1>{{ product.inventory }} /  {{ product.ideal_stock }}</h1>
     <div class="inventory-item-bar">
         {% if product.inventory == 0 or product.ideal_stock == 0 %}

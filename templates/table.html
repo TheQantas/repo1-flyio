@@ -39,6 +39,9 @@
         <button class="product-button" hx-get="/load_add" hx-target="body" hx-swap="beforeend">
             NEW PRODUCT
         </button>
+        <button class="product-button" hx-get="/load_add_category" hx-target="body" hx-swap="beforeend">
+            NEW CATEGORY
+        </button>
         {% block add %}
         {% endblock %}
 
@@ -49,7 +52,10 @@
                 <img alt="Map" src="icons/map.svg" class="inventory-item-icon"/>
                 <div class="center-vert">
                     <span class="inventory-item-name">{{ product.product_name }}</span>
-                    <span>Item Category Placeholder</span>
+                    {% if product.category.name is not none %}
+                    <span>{{ product.category.name }}</span>
+                    {% endif %}
+
                 </div>
                 <div class="center-all" style="padding: 0 25px;">
                     <div class="inventory-item-bar">

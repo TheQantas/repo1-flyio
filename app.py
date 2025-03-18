@@ -1,5 +1,7 @@
 import os, secrets
 from flask import Flask, request, Response, render_template, redirect, abort, flash, url_for
+
+from repo1.src.model.product import Category
 from src.model.product import Product, InventorySnapshot, db
 from src.model.user import User, user_db
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
@@ -27,7 +29,7 @@ app.config['UPLOADED_IMAGES'] = UPLOAD_FOLDER
 
 
 with db:
-    db.create_tables([Product, InventorySnapshot])
+    db.create_tables([Category, Product, InventorySnapshot])
 
 with user_db:
     user_db.create_tables([User])
@@ -145,7 +147,7 @@ def get_add():
     return render_template("add_form.html")
 
 
-#TODO: make this a form
+
 @app.route("/add", methods=["POST"])
 @login_required
 def add():
@@ -153,7 +155,7 @@ def add():
     if current_user.username != 'admin':
         return abort(401, description='Only admins can add products')
     if Product.get_product(request.form.get("product_name")) is None:
-        Product.add_product(request.form.get("product_name"), int(request.form.get("inventory")), float(request.form.get("price")), request.form.get("unit_type"), int(request.form.get("ideal_stock")), None)
+        Product.add_product(request.form.get("product_name"), int(request.form.get("inventory")), int(request.form.get("category_id")), float(request.form.get("price")), request.form.get("unit_type"), int(request.form.get("ideal_stock")), None)
         Product.fill_days_left()
         EmailJob.process_emails(User.get_by_username('admin').email)
         return redirect("/")
@@ -216,6 +218,23 @@ def update_all(product_id: int):
     else:
         return abort(405, description="Method Not Allowed")
 
+
+@app.route("/add_category", methods=["POST"])
+@login_required
+def add_category():
+    #only admin can add products
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can add products')
+    if Category.get_category(request.form.get("category_name")) is None:
+        Category.add_category(request.form.get("category_name"), (request.form.get("category_color")))
+    else:
+        abort(400)
+    return redirect("/")
+
+
+
+
+
 #MODALS
 @app.get("/load_update/<int:product_id>")
 def load_update(product_id: int):
@@ -230,7 +249,12 @@ def load_update_all(product_id: int):
                            product=product)
 @app.get("/load_add")
 def load_add():
-    return render_template("modals/add.html")
+    categories = Category.all()
+    return render_template("modals/add.html", categories=categories)
+
+@app.get("/load_add_category")
+def load_add_color():
+    return render_template("modals/add_category.html")
 
 
 @app.get("/settings")
