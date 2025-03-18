@@ -2,8 +2,6 @@ from peewee import *
 import datetime
 from typing import Optional
 
-from unicodedata import category
-
 db = SqliteDatabase('inventory.db')
 
 

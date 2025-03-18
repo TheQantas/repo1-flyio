@@ -1,7 +1,7 @@
 import os, secrets
 from flask import Flask, request, Response, render_template, redirect, abort, flash, url_for
 
-from repo1.src.model.product import Category
+from src.model.product import Category
 from src.model.product import Product, InventorySnapshot, db
 from src.model.user import User, user_db
 from flask_login import LoginManager, login_required, login_user, current_user, logout_user
@@ -154,7 +154,7 @@ def add():
     #only admin can add products
     if current_user.username != 'admin':
         return abort(401, description='Only admins can add products')
-    if Product.get_product(request.form.get("product_name")) is None:
+    if Product.get_product(request.form.get("product_name")) is None and request.form.get("category_id") != '':
         Product.add_product(request.form.get("product_name"), int(request.form.get("inventory")), int(request.form.get("category_id")), float(request.form.get("price")), request.form.get("unit_type"), int(request.form.get("ideal_stock")), None)
         Product.fill_days_left()
         EmailJob.process_emails(User.get_by_username('admin').email)
