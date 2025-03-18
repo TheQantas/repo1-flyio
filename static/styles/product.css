@@ -1,3 +1,20 @@
+.content_container{
+    padding-left: 5%;
+    padding-right: 5%;
+}
+.upper_container{
+    display: flex;
+
+
+}
+.column {
+
+    border: 1px solid black;
+    box-sizing: border-box;
+}
+
+
+
 .image-box {
             width: 249px;
             height: 249px;

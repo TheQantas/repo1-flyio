@@ -32,7 +32,9 @@
             <button type="submit">Log Out</button>
         </form>
     </div>
-
+    <div class="content_container">
+    <div class="top_container">
+    <div class="column">
     <div class="image-box">
         <label for="fileInput">
     {% if not filepath %}
@@ -50,8 +52,10 @@
         this.form.submit();
         });
     </script>
+    </div>
+    <div class="column">
     <h1>{{ product.product_name }}</h1>
-    <h2>Item Category Placeholder</h2>
+    <h2>{{product.category.name}}</h2>
     <h1>{{ product.inventory }} /  {{ product.ideal_stock }}</h1>
     <div class="inventory-item-bar">
         {% if product.inventory == 0 or product.ideal_stock == 0 %}
@@ -66,8 +70,9 @@
             <div style="width: {{product.inventory/product.ideal_stock*100}}%; background-color: var(--hrdc-theme-stock-okay);"></div>
         {% endif %}
     </div>
+    </div>
 
-
+    <div class="column">
     <button class="product-button" hx-get="/load_update/{{ product.id }}" hx-target="body" hx-swap="beforeend">
             ADJUST STOCK
     </button>
@@ -86,8 +91,6 @@
 
         </div>
     </div>
-
-
 
 
     <div class ="info_container">
@@ -118,11 +121,14 @@
 
         </script>
     </div>
+    </div>
+    </div>
+    </div>
 
 
 
 
-
+</div>
 {% block update_stock %}
 {% endblock %}
 {% block update_all %}
