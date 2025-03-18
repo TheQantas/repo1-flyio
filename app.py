@@ -86,6 +86,14 @@ def home():
     products = Product.urgency_rank()
     return render_template("index.html", product_list=products, user=current_user)
 
+@app.get("/reports")
+@login_required
+def reports():
+    Product.fill_days_left()
+    products = Product.urgency_rank()
+    return render_template("reports_index.html", product_list=products, user=current_user)
+
+
 @app.get("/<int:product_id>")
 @login_required
 def inventory_history(product_id: int):
