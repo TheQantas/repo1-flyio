@@ -85,8 +85,14 @@ def home():
     # Fills the days left for each product with product.get_days_until_out
     Product.fill_days_left()
     # Loads products in urgency order
-    products = Product.urgency_rank()
-    return render_template("index.html", product_list=products, user=current_user)
+    category_id = request.args.get('category_id', default=0, type=int)  # Default to 0 if no category is selected
+    if category_id == 0:
+        products = Product.urgency_rank()
+    else:
+        products = Product.urgency_rank(category_id)
+    categories = Category.all()
+    print(category_id, '\n', type(category_id))
+    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
 
 @app.get("/reports")
 @login_required
@@ -232,7 +238,30 @@ def add_category():
     return redirect("/")
 
 
+@app.get("/export_csv")
+@login_required
+def export_csv():
+    if current_user.username != 'admin':
+        return abort(401, description='Only admin can export csv')
+    csv_file = Product.get_csv()
+    response = Response(csv_file, content_type="text/csv")
+    response.headers["Content-Disposition"] = "attachment; filename=products.csv"
+    return response
 
+@app.post("/filter")
+@login_required
+def filter():
+    category_id = int(request.form.get('category_id'))
+    # Fills the days left for each product with product.get_days_until_out
+    Product.fill_days_left()
+    # Loads products in urgency order using where for category filter
+    if category_id == 0:
+        products = Product.urgency_rank()
+    else:
+        products = Product.urgency_rank(category_id)
+    categories = Category.all()
+    print(category_id, '\n', type(category_id))
+    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
 
 
 #MODALS

@@ -28,13 +28,13 @@
                hx-target="#search-results"
                hx-indicator=".htmx-indicator">
 
-        <button class="product-button" hx-get="/export_csv" hx-target="body" hx-swap="beforeend">
-            EXPORT
-        </button>
+        <form action="/export_csv" method="get">
+    <button  type="submit" class="product-button">EXPORT CSV</button>
+</form>
 
 
     </div>
-    <h1>THis is where the charts go</h1>
+    <h1>This is where the charts go</h1>
     <div>
 
     </div>
