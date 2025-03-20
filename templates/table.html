@@ -29,7 +29,7 @@
 
     <div class="filter-parent">
 
-        <label for="category_id">Filter</label>
+        <label for="category_id">Categories</label>
             {% set current_category = current_category | int %}
 			<select id="category_id" name="category_id"
                     hx-trigger="change"
@@ -49,10 +49,16 @@
                             selected
                             {% endif %}>
                         {{ category.name }}
+
                     </option>
 				{% endfor %}
-			</select>
 
+			</select>
+        {% if current_category != 0 %}
+            <button hx-get="/load_edit_category/{{current_category}}" hx-target="body" hx-swap="beforeend">Edit Current Category</button>
+        {% endif %}
+        {% block edit_category %}
+        {% endblock %}
     </div>
     <div class="action-parent">
 

@@ -181,6 +181,18 @@ def delete(product_id: int):
     category_id = request.args.get('category_id', default=0, type=int)
     return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
 
+@app.delete("/delete_category/<int:category_id>")
+def delete_category(category_id: int):
+    #only admin can delete products
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can delete products')
+    Category.delete_category(category_id)
+    products = Product.urgency_rank()
+    categories = Category.all()
+    category_id = request.args.get('category_id', default=0, type=int)
+    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
+
+
 
 @app.route("/update/inventory/<int:product_id>", methods=["POST"])
 @login_required #any user can update inventory
@@ -224,6 +236,29 @@ def update_all(product_id: int):
         return redirect("/" + str(product_id), 303)
     else:
         return abort(405, description="Method Not Allowed")
+
+
+@app.route("/update_category/<int:category_id>", methods=["POST"])
+@login_required #admin only
+def update_category(category_id: int):
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can delete products')
+
+    if request.form.get('_method') == 'PATCH':
+        category = Category.get_category(category_id)
+        if category is None:
+            return abort(404, description=f"Could not find product {category.id}")
+
+        category_name = request.form.get("category_name")
+        category_color = request.form.get("category_color")
+        category.update_category(category_name, category_color)
+
+        return redirect("/", 303)
+    else:
+        return abort(405, description="Method Not Allowed")
+
+
+
 
 
 @app.route("/add_category", methods=["POST"])
@@ -285,7 +320,10 @@ def load_add():
 @app.get("/load_add_category")
 def load_add_color():
     return render_template("modals/add_category.html")
-
+@app.get("/load_edit_category/<int:category_id>")
+def load_edit_category(category_id: int):
+    category = Category.get_category(category_id)
+    return render_template("modals/edit_category.html", category=category)
 
 @app.get("/settings")
 @login_required

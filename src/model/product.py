@@ -4,6 +4,8 @@ from typing import Optional
 import io
 import csv
 
+from unicodedata import category
+
 db = SqliteDatabase('inventory.db')
 
 
@@ -32,6 +34,17 @@ class Category(Model):
                 return Category.get_by_id(name_or_id)
         except DoesNotExist:
             return None
+
+    @classmethod
+    def delete_category(cls, category_id):
+        category = Category.get_category(category_id)
+        category.delete_instance()
+
+    def update_category(self, category_name: str, category_color: str):
+        self.name = category_name
+        self.color = category_color
+        self.save()
+
 
     class Meta:
         database = db
