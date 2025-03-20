@@ -91,7 +91,6 @@ def home():
     else:
         products = Product.urgency_rank(category_id)
     categories = Category.all()
-    print(category_id, '\n', type(category_id))
     return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
 
 @app.get("/reports")
@@ -178,7 +177,9 @@ def delete(product_id: int):
         return abort(401, description='Only admins can delete products')
     Product.delete_product(product_id)
     products = Product.urgency_rank()
-    return render_template("index.html", product_list=products, user=current_user)
+    categories = Category.all()
+    category_id = request.args.get('category_id', default=0, type=int)
+    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
 
 
 @app.route("/update/inventory/<int:product_id>", methods=["POST"])
