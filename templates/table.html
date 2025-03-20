@@ -1,16 +1,4 @@
-<div class="navigation">
-    <form class="inventory">
-        <button type="submit" element="current">INVENTORY</button>
-    </form>
-    <form class="reports" action="/reports" method="get">
-        <button type="submit">REPORTS</button>
-    </form>
-    <form class="logout" action="/logout" method="post">
-        <button type="submit" element="logout">
-            <img alt="User" src="icons/user.svg" class="logout-icon"/>SIGN OUT
-        </button>
-    </form>
-</div>
+{% include "nav.html" %}
 
 <!--
     endpoint: the endpoing to hit to update (e.g., /update/<endpoint>/<id>)
@@ -26,7 +14,40 @@
     <div></div>
 </div>
 <div class="scaffolding">
-    <div class="filter-parent"></div>
+
+    <div class="filter-parent">
+
+        <label for="category_id">Categories</label>
+            {% set current_category = current_category | int %}
+			<select id="category_id" name="category_id"
+                    hx-trigger="change"
+                    hx-post="/filter"
+                    hx-target="body"
+                    hx-swap="outerHTML"
+                    hx-vals='js:{category_id: document.getElementById("category_id").value}'>
+				<option value="0"
+                        {% if current_category is none or current_category == 0 %}
+                        selected
+                        {% endif %}>
+                    All
+                </option>
+				{% for category in categories %}
+					<option value="{{ category.id }}"
+                            {% if category.id == current_category %}
+                            selected
+                            {% endif %}>
+                        {{ category.name }}
+
+                    </option>
+				{% endfor %}
+
+			</select>
+        {% if current_category != 0 %}
+            <button hx-get="/load_edit_category/{{current_category}}" hx-target="body" hx-swap="beforeend">Edit Current Category</button>
+        {% endif %}
+        {% block edit_category %}
+        {% endblock %}
+    </div>
     <div class="action-parent">
 
         <input class="form-control" type="search"
