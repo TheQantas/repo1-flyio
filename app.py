@@ -85,8 +85,13 @@ def home():
     # Fills the days left for each product with product.get_days_until_out
     Product.fill_days_left()
     # Loads products in urgency order
-    products = Product.urgency_rank()
-    return render_template("index.html", product_list=products, user=current_user)
+    category_id = request.args.get('category_id', default=0, type=int)  # Default to 0 if no category is selected
+    if category_id == 0:
+        products = Product.urgency_rank()
+    else:
+        products = Product.urgency_rank(category_id)
+    categories = Category.all()
+    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
 
 @app.get("/reports")
 @login_required
@@ -181,7 +186,21 @@ def delete(product_id: int):
         return abort(401, description='Only admins can delete products')
     Product.delete_product(product_id)
     products = Product.urgency_rank()
-    return render_template("index.html", product_list=products, user=current_user)
+    categories = Category.all()
+    category_id = request.args.get('category_id', default=0, type=int)
+    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
+
+@app.delete("/delete_category/<int:category_id>")
+def delete_category(category_id: int):
+    #only admin can delete products
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can delete products')
+    Category.delete_category(category_id)
+    products = Product.urgency_rank()
+    categories = Category.all()
+    category_id = request.args.get('category_id', default=0, type=int)
+    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
+
 
 
 @app.route("/update/inventory/<int:product_id>", methods=["POST"])
@@ -229,6 +248,29 @@ def update_all(product_id: int):
         return abort(405, description="Method Not Allowed")
 
 
+@app.route("/update_category/<int:category_id>", methods=["POST"])
+@login_required #admin only
+def update_category(category_id: int):
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can delete products')
+
+    if request.form.get('_method') == 'PATCH':
+        category = Category.get_category(category_id)
+        if category is None:
+            return abort(404, description=f"Could not find product {category.id}")
+
+        category_name = request.form.get("category_name")
+        category_color = request.form.get("category_color")
+        category.update_category(category_name, category_color)
+
+        return redirect("/", 303)
+    else:
+        return abort(405, description="Method Not Allowed")
+
+
+
+
+
 @app.route("/add_category", methods=["POST"])
 @login_required
 def add_category():
@@ -242,7 +284,30 @@ def add_category():
     return redirect("/")
 
 
+@app.get("/export_csv")
+@login_required
+def export_csv():
+    if current_user.username != 'admin':
+        return abort(401, description='Only admin can export csv')
+    csv_file = Product.get_csv()
+    response = Response(csv_file, content_type="text/csv")
+    response.headers["Content-Disposition"] = "attachment; filename=products.csv"
+    return response
 
+@app.post("/filter")
+@login_required
+def filter():
+    category_id = int(request.form.get('category_id'))
+    # Fills the days left for each product with product.get_days_until_out
+    Product.fill_days_left()
+    # Loads products in urgency order using where for category filter
+    if category_id == 0:
+        products = Product.urgency_rank()
+    else:
+        products = Product.urgency_rank(category_id)
+    categories = Category.all()
+    print(category_id, '\n', type(category_id))
+    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
 
 
 #MODALS
@@ -272,7 +337,10 @@ def load_add():
 @app.get("/load_add_category")
 def load_add_color():
     return render_template("modals/add_category.html")
-
+@app.get("/load_edit_category/<int:category_id>")
+def load_edit_category(category_id: int):
+    category = Category.get_category(category_id)
+    return render_template("modals/edit_category.html", category=category)
 
 @app.get("/settings")
 @login_required

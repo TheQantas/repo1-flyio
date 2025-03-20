@@ -1,6 +1,10 @@
 from peewee import *
 import datetime
 from typing import Optional
+import io
+import csv
+
+from unicodedata import category
 
 db = SqliteDatabase('inventory.db')
 
@@ -31,6 +35,17 @@ class Category(Model):
         except DoesNotExist:
             return None
 
+    @classmethod
+    def delete_category(cls, category_id):
+        category = Category.get_category(category_id)
+        category.delete_instance()
+
+    def update_category(self, category_name: str, category_color: str):
+        self.name = category_name
+        self.color = category_color
+        self.save()
+
+
     class Meta:
         database = db
 
@@ -57,9 +72,16 @@ class Product(Model):
         return list(Product.select())
 
     @staticmethod
-    def urgency_rank() -> list['Product']:
-        UR = Product.select(Product, Category).join(Category).order_by(fn.COALESCE(Product.days_left, 999999))
-        return list(UR)
+    #overloaded with category id for filter
+    def urgency_rank(category_id: int = None) -> list['Product']:
+        query = Product.select(Product, Category).join(Category)
+
+        if category_id is not None:
+            query = query.where(Product.category_id == category_id)
+
+        query = query.order_by(fn.COALESCE(Product.days_left, 999999))
+
+        return list(query)
 
     @staticmethod
     def add_product(name: str, stock: int, category: int, price: float, unit_type: str, ideal_stock: int, donation: bool, days_left: None, image_path: str = None) -> 'Product':
@@ -126,6 +148,15 @@ class Product(Model):
     ########################################
     ########### INSTANCE METHODS ###########
     ########################################
+    @classmethod
+    def get_csv(cls):
+        output = io.StringIO()
+        writer = csv.writer(output)
+        writer.writerow(['Name', 'Category', 'Inventory', 'Price', 'Unit Type', 'Ideal Stock', 'Days Left'])
+        for product in cls.select():
+            writer.writerow([product.product_name, product.category.name, product.inventory, product.price, product.unit_type, product.ideal_stock, product.days_left])
+        output.seek(0)
+        return output.getvalue()
 
     def get_donated_inventory(self) -> int:
         snapshots = InventorySnapshot.product_snapshots_chronological(self.get_id())
