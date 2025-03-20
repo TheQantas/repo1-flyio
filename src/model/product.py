@@ -61,7 +61,10 @@ class Product(Model):
     image_path = CharField(null=True)
     last_updated = DateTimeField(default=datetime.datetime.now)
     days_left = DecimalField(decimal_places=2, auto_round=True, null=True)
-    notified = BooleanField(default=False)
+    #not notified = 0
+    #notified once (half inventory) = 1
+    #notified twice (half and 1/4 inventory) = 2
+    notified = IntegerField(default=0)
     donation = BooleanField(default=False)
 
     ########################################
@@ -133,7 +136,17 @@ class Product(Model):
         products = Product.all()
         res = []
         for item in products:
-            if not item.notified and item.inventory <= (item.ideal_stock / 4):
+            if item.notified < 2 and item.inventory <= (item.ideal_stock / 4):
+                res.append(item)
+        return res
+    
+    #retrieves products with inventory <= 50% ideal stock
+    @staticmethod
+    def products_leq_half() -> list['Product']:
+        products = Product.all()
+        res = []
+        for item in products:
+            if item.notified < 1 and item.inventory <= (item.ideal_stock / 2):
                 res.append(item)
         return res
     
@@ -261,12 +274,12 @@ class Product(Model):
         self.save()
 
     #marks product as notified (after email is sent)
-    def mark_notified(self):
-        self.notified = True
+    def increment_notified(self):
+        self.notified += 1
         self.save()
     
     def mark_not_notified(self):
-        self.notified = False
+        self.notified = 0 
         self.save()
 
         
