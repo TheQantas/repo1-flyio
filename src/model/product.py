@@ -2,14 +2,43 @@ from peewee import *
 import datetime
 from typing import Optional
 
-
-
 db = SqliteDatabase('inventory.db')
+
+
+class Category(Model):
+    name = CharField(unique=True)
+    color = CharField(unique=True)
+
+    @staticmethod
+    def all() -> list['Category']:
+        return list(Category.select())
+
+    @staticmethod
+    def add_category(name: str, color: str) -> 'Category':
+        category = Category.create(
+            name=name,
+            color = color
+        )
+        return category
+
+    @staticmethod
+    def get_category(name_or_id: str | int) -> Optional['Category']:
+        try:
+            if type(name_or_id) is str:
+                return Category.get(Category.name == name_or_id)
+            else:
+                return Category.get_by_id(name_or_id)
+        except DoesNotExist:
+            return None
+
+    class Meta:
+        database = db
 
 
 
 class Product(Model):
     product_name = CharField(unique=True)
+    category = ForeignKeyField(Category, backref='products')
     inventory = IntegerField(default=0)
     price = DecimalField(decimal_places=2, auto_round=True)
     unit_type = CharField(null=True)
@@ -29,13 +58,14 @@ class Product(Model):
 
     @staticmethod
     def urgency_rank() -> list['Product']:
-        UR = Product.select().order_by((fn.COALESCE(Product.days_left, 999999)))
+        UR = Product.select(Product, Category).join(Category).order_by(fn.COALESCE(Product.days_left, 999999))
         return list(UR)
 
     @staticmethod
-    def add_product(name: str, stock: int, price: float, unit_type: str, ideal_stock: int, donation: bool, days_left: None, image_path: str = None) -> 'Product':
+    def add_product(name: str, stock: int, category: int, price: float, unit_type: str, ideal_stock: int, donation: bool, days_left: None, image_path: str = None) -> 'Product':
         product, created = Product.get_or_create(
             product_name=name,
+            category=category,
             defaults={
                 'inventory': stock,
                 'price': price,
@@ -271,10 +301,10 @@ class InventorySnapshot(Model):
         self.ignored = True
         self.save()
 
-
-
     class Meta:
         database = db
+
+
 
 
 
