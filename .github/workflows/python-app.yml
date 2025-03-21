@@ -47,4 +47,4 @@ jobs:
       run: npm install -g selenium-side-runner
 
     - name: Run Selenium tests
-      run: selenium-side-runner CRUD.side
+      run: selenium-side-runner automated-testing/CRUD.side
