@@ -46,7 +46,7 @@ jobs:
     - name: Install Selenium-side-runner
       run: npm install -g selenium-side-runner
 
-    - name: Setup Fluxbox and Xvfb
+    - name: Setup Fluxbox and Xvfb #see https://github.com/SeleniumHQ/selenium/issues/15327
       run: |
         sudo apt-get -y install fluxbox
         Xvfb :99 &
@@ -54,4 +54,4 @@ jobs:
         echo "DISPLAY=:99" >> "$GITHUB_ENV"
 
     - name: Run Selenium tests
-      run: selenium-side-runner -c "browserName=chrome goog:chromeOptions.args=[\"--headless\", \"--disable-gpu\", \"--no-sandbox\", \"--incognito\" \"--remote-debugging-port=9222\"]" automated-testing/CRUD.side
+      run: selenium-side-runner -c "browserName=chrome goog:chromeOptions.args=[\"--headless\"]" automated-testing/CRUD.side
