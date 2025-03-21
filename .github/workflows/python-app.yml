@@ -46,5 +46,10 @@ jobs:
     - name: Install Selenium-side-runner
       run: npm install -g selenium-side-runner
 
+    - name: Check Firefox & GeckoDriver versions
+      run: |
+        firefox --version
+        geckodriver --version
+
     - name: Run Selenium tests
       run: selenium-side-runner -c "browserName=firefox moz:firefoxOptions.args=[\"--headless\"]" automated-testing/CRUD.side
