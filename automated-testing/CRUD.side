@@ -77,17 +77,10 @@
     "id": "af71f117-6e33-42f0-ae8a-8353b4379b4f",
     "name": "logout",
     "commands": [{
-      "id": "f50e4f35-44a3-47a3-b9fe-ce9bbc010b75",
+      "id": "6bbc4610-d435-4847-ad72-b2dde2782d58",
       "comment": "",
-      "command": "open",
-      "target": "/",
-      "targets": [],
-      "value": ""
-    }, {
-      "id": "fef1f825-a81c-49d8-bf15-5cfd1b6eed8e",
-      "comment": "",
-      "command": "setWindowSize",
-      "target": "1382x736",
+      "command": "run",
+      "target": "login",
       "targets": [],
       "value": ""
     }, {
