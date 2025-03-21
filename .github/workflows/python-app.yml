@@ -1,5 +1,10 @@
 name: Run App
 
+env:
+  ADMIN_PASSWORD: password
+  STAFF_PASSWORD: password
+  VOLUNTEER_PASSWORD: password
+
 on:
   push:
     branches: [ "main" ]
