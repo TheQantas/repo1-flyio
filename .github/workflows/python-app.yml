@@ -47,4 +47,4 @@ jobs:
       run: npm install -g selenium-side-runner
 
     - name: Run Selenium tests
-      run: selenium-side-runner -c "browserName=chrome goog:chromeOptions.args=[\"--headless\", \"--disable-gpu\", \"--no-sandbox\", \"--user-data-dir=/tmp/chrome-profile-$(date +%s)\"]" automated-testing/CRUD.side
+      run: selenium-side-runner -c "browserName=chrome goog:chromeOptions.args=[\"--headless\", \"--disable-gpu\", \"--no-sandbox\", \"--incognito\"]" automated-testing/CRUD.side
