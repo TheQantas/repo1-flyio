@@ -11,7 +11,7 @@
 <body>
     <div class="header-color">
         <h1>Developer Documentation</h1>
-        <h2>Last Updated 05 Mar 2025</h2>
+        <h2>Last Updated 22 Mar 2025</h2>
 
         <div class="navigation-bar">
             <a href="./index.html">
@@ -40,6 +40,15 @@
                 <code>pip install -r requirements.txt</code> or <code>pip3 install -r requirements.txt</code>
                 to make sure you have all of the
                 needed dependencies installed.
+            </li>
+            <li>Create a <code>.env</code>file with the following fields: 
+                <ul>
+                    <li><code>ADMIN_PASSWORD</code></li>
+                    <li><code>STAFF_PASSWORD</code></li>
+                    <li><code>VOLUNTEER_PASSWORD</code></li>
+                    <li><code>SENDGRID_KEY</code>- this is used for email notifications.
+                    Reach out to a developer if you need this and they can get you the correct key.</li>
+                </ul>
             </li>
             <li>Run <code>python app.py</code> in the root project directory to start the site.</li>
             <li>Go to <code>http://127.0.0.1:5000</code> to view the current site.</li>
@@ -76,8 +85,8 @@
             <li><i>Staff</i>: can update inventory, but cannot add or delete items</li>
             <li><i>Volunteer</i>: currently the same as <i>Staff</i></li>
         </ul>
-        <p>On local deployments, the passwords are hardcoded in as &quot;password&quot; (for now, since
-            this is still in development). If you are developing and sick of re-signing in after every
+        <p>On local deployments, the passwords are pulled from your .env file (see the getting started secion). 
+            If you are developing and sick of re-signing in after every
             server restart, consider temporarily changing <code>app.config['SECRET_KEY']</code> to a constant value.
         </p>
 
@@ -107,8 +116,15 @@
 
 
         <h3>Automated Building and Testing</h3>
-        <p>At this time, we don't have any automated building or testing set up.
-            These docs will be updated when we do.
+        <p>There is a github action that will run the app and then test it with selenium.
+            Right now, since the UI is going through a lof of changes, the tests are:
+            <ul>
+                <li>logging in</li>
+                <li>logging out</li>
+                <li>adding a product</li>
+            </ul>
+            If you make a PR and the tests fail, you should investigate and see whether you made a breaking change
+            or if the tests just need to be rewritten because of DOM changes.
         </p>
 
 
