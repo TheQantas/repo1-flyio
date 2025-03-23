@@ -9,9 +9,27 @@
 -->
 
 <div class="urgency-banners">
-    <div></div>
-    <div></div>
-    <div></div>
+    <div>
+        {% if levels[0] == 0 %}
+        <p>There are no products at critical levels</p>
+        {% else %}
+        <p>There are {{ levels[0] }} products at critical levels</p>
+        {% endif %}
+    </div>
+    <div>
+        {% if levels[1] == 0 %}
+        <p>There are no products at low urgency levels</p>
+        {% else %}
+        <p>There are {{ levels[1] }} products at low urgency levels</p>
+        {% endif %}
+    </div>
+    <div>
+        {% if levels[2] == 0 %}
+        <p>There are no products at well stocked levels</p>
+        {% else %}
+        <p>There are {{ levels[2] }} products at well stocked levels</p>
+        {% endif %}
+    </div>
 </div>
 <div class="scaffolding">
 
