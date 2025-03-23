@@ -118,7 +118,7 @@ body
     font-family: 'Gotham Book';
 }
 
-.urgency-placeholder {
+.urgency-banners {
     height: 60px;
     padding: var(--main-padding);
     padding-bottom: 0;
@@ -129,7 +129,7 @@ body
     background-color: orchid;
 }
 
-.urgency-placeholder > div {
+.urgency-banners > div {
     background-color: cornflowerblue;
 }
 
