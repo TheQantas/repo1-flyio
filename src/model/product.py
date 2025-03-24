@@ -4,8 +4,6 @@ from typing import Optional
 import io
 import csv
 
-from unicodedata import category
-
 db = SqliteDatabase('inventory.db')
 
 

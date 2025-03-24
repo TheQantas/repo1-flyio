@@ -55,6 +55,7 @@ body {
 .header {
     position: relative;
     width: 100%;
+    box-sizing: border-box;
     background: var(--hrdc-theme-teal);
     color: white;
     display: flex;

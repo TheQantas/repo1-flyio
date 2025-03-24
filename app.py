@@ -358,6 +358,24 @@ def update_settings():
     User.get_by_username('admin').update_email(email)
     return redirect("/settings")
 
+
+@app.get("/mobile")
+@login_required
+def render_mobile_home_page():
+    return render_template("mobile_index.html")
+
+
+
+
+
+
+
+
+
+
+
+
+
 with app.app_context():
     if not User.get_by_username('admin'):
         User.add_user('admin', bcrypt.generate_password_hash(os.environ.get("ADMIN_PASSWORD")))
