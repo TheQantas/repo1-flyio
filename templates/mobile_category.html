@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+<link rel="stylesheet" href="styles/mobile_base.css"/>
+
+
+
+<div class="mobile-form-container">
+    <img src="icons/search_icon.svg" alt="Search Icon"/>
+    <input class="mobile-form-control" placeholder="Search {{ category_name }}"/>
+</div>
+
+<div class="grid-land">
+    {% for product in product_list %}
+        <button class="category-btn">
+            {% if not product.image_path %}
+                <img src="icons/image-camera.svg" alt="{{ product.product_name }}"/><br>
+            {% else %}
+                <img src="{{ product.image_path }}" alt="{{ product.product_name }}"/><br>
+            {% endif %}
+            <span>{{ product.product_name }}</span>
+        </button>
+    {% endfor %}
+</div>
+
+{% endblock %}

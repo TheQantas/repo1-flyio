@@ -362,7 +362,17 @@ def update_settings():
 @app.get("/mobile")
 @login_required
 def render_mobile_home_page():
-    return render_template("mobile_index.html")
+    categories = Category.all()
+    return render_template("mobile_index.html", category_list=categories)
+
+@app.get("/mobile-category")
+@login_required
+def render_mobile_category_page():
+    category_id = request.args.get('category_id', type=int)
+    print('cat id', category_id)
+    category_name = "All Products" if category_id is None else Category.get_category(category_id).name
+    products = Product.alphabetized_of_category(category_id)
+    return render_template("mobile_category.html", product_list=products, category_name=category_name)
 
 
 

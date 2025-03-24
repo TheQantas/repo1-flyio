@@ -10,6 +10,7 @@ db = SqliteDatabase('inventory.db')
 class Category(Model):
     name = CharField(unique=True)
     color = CharField(unique=True)
+    image_path = CharField(null=True)
 
     @staticmethod
     def all() -> list['Category']:
@@ -33,8 +34,8 @@ class Category(Model):
         except DoesNotExist:
             return None
 
-    @classmethod
-    def delete_category(cls, category_id):
+    @staticmethod
+    def delete_category(category_id):
         category = Category.get_category(category_id)
         category.delete_instance()
 
@@ -81,6 +82,18 @@ class Product(Model):
             query = query.where(Product.category_id == category_id)
 
         query = query.order_by(fn.COALESCE(Product.days_left, 999999))
+
+        return list(query)
+    
+    @staticmethod
+    #overloaded with category id for filter
+    def alphabetized_of_category(category_id: int = None) -> list['Product']:
+        query = Product.select(Product, Category).join(Category)
+
+        if category_id is not None:
+            query = query.where(Product.category_id == category_id)
+
+        query = query.order_by(Product.product_name)
 
         return list(query)
 

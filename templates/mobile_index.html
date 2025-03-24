@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
+<link rel="stylesheet" href="styles/mobile_base.css"/>
 <link rel="stylesheet" href="styles/mobile_index.css"/>
 
 <div class="mobile-form-container">
@@ -8,45 +9,16 @@
 </div>
 
 <div class="grid-land">
-    <button class="category-btn">
-        <img src="icons/map.svg" alt="Office Supplies"/><br>
-        <span>Office Supplies</span>
-    </button>
-
-    <button class="category-btn">
-        <img src="icons/restaurant.svg" alt="Food Products"/><br>
-        <span>Food Products</span>
-    </button>
-
-    <button class="category-btn">
-        <img src="icons/restaurant.svg" alt="Hygiene Products"/><br>
-        <span>Hygiene Products</span>
-    </button>
-
-    <button class="category-btn">
-        <img src="icons/map.svg" alt="Office Supplies"/><br>
-        <span>Office Supplies</span>
-    </button>
-
-    <button class="category-btn">
-        <img src="icons/restaurant.svg" alt="Food Products"/><br>
-        <span>Food Products</span>
-    </button>
-
-    <button class="category-btn">
-        <img src="icons/restaurant.svg" alt="Hygiene Products"/><br>
-        <span>Hygiene Products</span>
-    </button>
-    
-    <button class="category-btn">
-        <img src="icons/restaurant.svg" alt="Food Products"/><br>
-        <span>Food Products</span>
-    </button>
-
-    <button class="category-btn">
-        <img src="icons/restaurant.svg" alt="Hygiene Products"/><br>
-        <span>Hygiene Products</span>
-    </button>
+    {% for category in category_list %}
+        <a href="/mobile-category?category_id={{ category.id }}" class="category-btn center-all">
+            {% if not category.image_path %}
+                <img src="icons/image-camera.svg" alt="Off{{ category.name }}"/><br>
+            {% else %}
+                <img src="{{ category.image_path }}" alt="Off{{ category.name }}"/><br>
+            {% endif %}
+            <span>{{ category.name }}</span>
+        </a>
+    {% endfor %}
 </div>
 
 {% endblock %}
