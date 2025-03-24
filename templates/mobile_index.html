@@ -3,14 +3,9 @@
 <link rel="stylesheet" href="styles/mobile_base.css"/>
 <link rel="stylesheet" href="styles/mobile_index.css"/>
 
-<div class="mobile-form-container">
-    <img src="icons/search_icon.svg" alt="Search Icon"/>
-    <input class="mobile-form-control" placeholder="Search"/>
-</div>
-
 <div class="grid-land">
     {% for category in category_list %}
-        <a href="/mobile-category?category_id={{ category.id }}" class="category-btn center-all">
+        <a href="/mobile-category?category_id={{ category.id }}" class="category-btn center-all box-shadow-small">
             {% if not category.image_path %}
                 <img src="icons/image-camera.svg" alt="Off{{ category.name }}"/><br>
             {% else %}

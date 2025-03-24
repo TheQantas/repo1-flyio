@@ -1,3 +1,38 @@
+.back-row {
+    margin: 20px;
+    font-size: 1em;
+}
+.back-row > a {
+    height: 1.4em;
+    display: inline-block;
+    overflow: hidden;
+    font-family: 'Gotham Book', sans-serif;
+    color: var(--hrdc-theme-dark-teal);
+    font-weight: bold;
+    text-decoration: none;
+}
+.back-row > a > img {
+    height: 1.4em;
+}
+.back-row > a > span {
+    position: relative;
+    top: -0.35em;
+    padding: 0 5px;
+    text-transform: uppercase;
+}
+
+.mobile-form-container {
+    margin: 20px;
+    width: calc(100% - 40px);
+    position: relative;
+}
+.mobile-form-container > img {
+    position: absolute;
+    height: 20px;
+    top: 15px;
+    left: 15px;
+}
+
 .mobile-form-control {
     padding: 15px;
     padding-left: 40px;

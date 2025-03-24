@@ -1,18 +1,5 @@
-.mobile-form-container {
-    margin: 20px;
-    width: calc(100% - 40px);
-    position: relative;
-}
-.mobile-form-container > img {
-    position: absolute;
-    height: 20px;
-    top: 15px;
-    left: 15px;
-}
-
 .grid-land {
     padding: 20px;
-    padding-top: 0;
     gap: 20px;
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -21,13 +8,14 @@
     aspect-ratio: 1 / 1;
     border: none;
     border-radius: 0;
-    background-color: var(--hrdc-theme-light-grey);
+    background-color: var(--hrdc-theme-really-light-grey);
     text-decoration: none;
     font-family: 'Gotham Book', sans-serif;
     flex-direction: column;
+    text-align: center;
 }
 .category-btn:hover, .category-btn:focus {
-    background-color: var(--hrdc-theme-medium-grey);
+    background-color: var(--hrdc-theme-light-grey);
 }
 .category-btn > img {
     width: 50%;

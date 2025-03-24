@@ -315,8 +315,7 @@ def filter():
 @login_required
 def load_update(product_id: int):
     product = Product.get_product(product_id)
-    return render_template("modals/update_stock.html",
-                           product=product)
+    return render_template("modals/update_stock.html", product=product)
 
 @app.get("/load_update_all/<int:product_id>")
 @login_required
@@ -362,17 +361,22 @@ def update_settings():
 @app.get("/mobile")
 @login_required
 def render_mobile_home_page():
-    categories = Category.all()
+    categories = [
+        Category.ALL_PRODUCTS_PLACEHOLDER,
+        *Category.all()
+    ]
     return render_template("mobile_index.html", category_list=categories)
 
 @app.get("/mobile-category")
 @login_required
 def render_mobile_category_page():
     category_id = request.args.get('category_id', type=int)
-    print('cat id', category_id)
-    category_name = "All Products" if category_id is None else Category.get_category(category_id).name
+    if category_id == Category.ALL_PRODUCTS_PLACEHOLDER['id']:
+        category_id = None
+    category = Category.ALL_PRODUCTS_PLACEHOLDER if category_id is None or category_id == 0 else Category.get_category(category_id)
     products = Product.alphabetized_of_category(category_id)
-    return render_template("mobile_category.html", product_list=products, category_name=category_name)
+    print('product count', len(products))
+    return render_template("mobile_category.html", product_list=products, category=category)
 
 
 

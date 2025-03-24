@@ -1,24 +1,35 @@
 {% extends "base.html" %}
 {% block content %}
 <link rel="stylesheet" href="styles/mobile_base.css"/>
+<link rel="stylesheet" href="styles/mobile_category.css"/>
 
-
+<div class="back-row">
+    <a href="/mobile">
+        <img src="icons/arrow_left.svg" alt="Left Arrow"><span>Back</span>
+    </a>
+</div>
 
 <div class="mobile-form-container">
     <img src="icons/search_icon.svg" alt="Search Icon"/>
-    <input class="mobile-form-control" placeholder="Search {{ category_name }}"/>
+    <input class="mobile-form-control" placeholder="Search {{ category.name }}"/>
 </div>
 
 <div class="grid-land">
+    {% if category_list|length == 0 %}
+        <span>No items with category &quot;{{ category.name }}&quot;</span>
+    {% endif %}
     {% for product in product_list %}
-        <button class="category-btn">
+        <div class="product-row box-shadow-small">
             {% if not product.image_path %}
-                <img src="icons/image-camera.svg" alt="{{ product.product_name }}"/><br>
+                <img src="icons/image-camera.svg" alt="{{ product.product_name }} Icon"/>
             {% else %}
-                <img src="{{ product.image_path }}" alt="{{ product.product_name }}"/><br>
+                <img src="{{ product.image_path }}" alt="{{ product.product_name }} Icon"/>
             {% endif %}
-            <span>{{ product.product_name }}</span>
-        </button>
+            <div class="product-row-rhs">
+                <span class="product-row-name">{{ product.product_name }}</span>
+                <a class="product-row-adjust" hx-get="/load_update/{{ product.id }}" hx-target="body" hx-swap="beforeend">Update Stock</a>
+            </div>
+        </div>
     {% endfor %}
 </div>
 

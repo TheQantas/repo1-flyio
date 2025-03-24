@@ -8,6 +8,8 @@ db = SqliteDatabase('inventory.db')
 
 
 class Category(Model):
+    ALL_PRODUCTS_PLACEHOLDER = {"name": "All Products", "color": "black", "image_path": None, "id": 0}
+    
     name = CharField(unique=True)
     color = CharField(unique=True)
     image_path = CharField(null=True)
