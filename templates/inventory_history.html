@@ -28,6 +28,11 @@
     <h1>{{ product.product_name }}</h1>
     <h2>{{product.category.name}}</h2>
     <h1>{{ product.inventory }} /  {{ product.ideal_stock }}</h1>
+    <h1>Total donated: {{ product.lifetime_donated }}</h1>
+    <button hx-get="/load_update_donated/{{ product.id }}" hx-target="body" hx-swap="beforeend">
+        ADJUST DONATED AMOUNT
+    </button>
+    <h1>Total purchased: {{ product.lifetime_purchased }}</h1>
     <div class="inventory-item-bar">
         {% if product.inventory == 0 or product.ideal_stock == 0 %}
             <div class="inventory-item-no-stock"></div>
