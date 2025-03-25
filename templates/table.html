@@ -8,42 +8,70 @@
     human_desc: a human-readable attribute name
 -->
 
-<div class="urgency-placeholder">
-    <div></div>
-    <div></div>
-    <div></div>
+<div class="urgency-banners">
+    <div>
+        <div class="shadow">
+            <div class="red_rectangle"></div>
+            <div class="banner">
+                <p style="font-size: 1.5rem; font-weight: bold;">{{ levels[0] }}</p>
+                <p style="font-size: .75rem">Low Stock Products</p>
+            </div>
+        </div>
+
+    </div>
+    <div>
+        <div class="shadow">
+            <div class="orange_rectangle"></div>
+            <div class="banner">
+                <p style="font-size: 1.5rem; font-weight: bold;">{{ levels[1] }}</p>
+                <p style="font-size: .75rem">Medium Stock Products</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="shadow">
+            <div class="green_rectangle"></div>
+            <div class="banner">
+                <p style="font-size: 1.5rem; font-weight: bold;">{{ levels[2] }}</p>
+                <p style="font-size: .75rem">Well Stocked Products</p>
+            </div>
+        </div>
+    </div>
+
 </div>
 <div class="scaffolding">
 
     <div class="filter-parent">
 
         <label for="category_id">Categories</label>
-            {% set current_category = current_category | int %}
-			<select id="category_id" name="category_id"
-                    hx-trigger="change"
-                    hx-post="/filter"
-                    hx-target="body"
-                    hx-swap="outerHTML"
-                    hx-vals='js:{category_id: document.getElementById("category_id").value}'>
-				<option value="0"
-                        {% if current_category is none or current_category == 0 %}
+        {% set current_category = current_category | int %}
+        <select id="category_id" name="category_id"
+                hx-trigger="change"
+                hx-post="/filter"
+                hx-target="body"
+                hx-swap="outerHTML"
+                hx-vals='js:{category_id: document.getElementById("category_id").value}'>
+            <option value="0"
+                    {% if current_category is none or current_category == 0 %}
+                    selected
+                    {% endif %}>
+                All
+            </option>
+            {% for category in categories %}
+                <option value="{{ category.id }}"
+                        {% if category.id == current_category %}
                         selected
                         {% endif %}>
-                    All
+                    {{ category.name }}
+
                 </option>
-				{% for category in categories %}
-					<option value="{{ category.id }}"
-                            {% if category.id == current_category %}
-                            selected
-                            {% endif %}>
-                        {{ category.name }}
+            {% endfor %}
 
-                    </option>
-				{% endfor %}
-
-			</select>
+        </select>
         {% if current_category != 0 %}
-            <button hx-get="/load_edit_category/{{current_category}}" hx-target="body" hx-swap="beforeend">Edit Current Category</button>
+            <button hx-get="/load_edit_category/{{ current_category }}" hx-target="body" hx-swap="beforeend">Edit
+                Current Category
+            </button>
         {% endif %}
         {% block edit_category %}
         {% endblock %}
@@ -74,7 +102,7 @@
                 <div class="center-vert">
                     <span class="inventory-item-name">{{ product.product_name }}</span>
                     {% if product.category.name is not none %}
-                    <span>{{ product.category.name }}</span>
+                        <span>{{ product.category.name }}</span>
                     {% endif %}
 
                 </div>

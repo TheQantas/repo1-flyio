@@ -22,7 +22,7 @@ login_manager.init_app(app)
 bcrypt = Bcrypt(app)
 
 app.config['SECRET_KEY'] = secrets.token_urlsafe()
-#app.config['SECRET_KEY'] = "asdf"
+app.config['SECRET_KEY'] = "asdf"
 app.config["SESSION_PROTECTION"] = "strong"
 UPLOAD_FOLDER = os.path.join("static", "images")
 app.config['UPLOADED_IMAGES'] = UPLOAD_FOLDER
@@ -91,7 +91,9 @@ def home():
     else:
         products = Product.urgency_rank(category_id)
     categories = Category.all()
-    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
+    levels = Product.get_low_products()
+    return render_template("index.html", product_list=products, user=current_user,
+                           categories=categories, current_category=category_id, levels=levels)
 
 @app.get("/reports")
 @login_required
