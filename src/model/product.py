@@ -75,6 +75,10 @@ class Product(Model):
         return list(Product.select())
 
     @staticmethod
+    def search(product: str = '') -> list['Product']:
+        return list(Product.select().where(Product.product_name.ilike(f'%{product}%')))
+
+    @staticmethod
     #overloaded with category id for filter
     def urgency_rank(category_id: int = None) -> list['Product']:
         query = Product.select(Product, Category).join(Category)
