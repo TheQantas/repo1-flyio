@@ -380,4 +380,4 @@ with app.app_context():
         User.add_user('volunteer', bcrypt.generate_password_hash(os.environ.get("VOLUNTEER_PASSWORD")))
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=False)
+    app.run(port=8080, debug=False)
