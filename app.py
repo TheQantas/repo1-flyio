@@ -10,6 +10,8 @@ from flask_bcrypt import Bcrypt
 from src.common.forms import LoginForm
 from src.common.email_job import EmailJob
 
+from user_agents import parse
+
 from dotenv import load_dotenv
 load_dotenv()
 
@@ -27,6 +29,9 @@ app.config["SESSION_PROTECTION"] = "strong"
 UPLOAD_FOLDER = os.path.join("static", "images")
 app.config['UPLOADED_IMAGES'] = UPLOAD_FOLDER
 
+def is_mobile():
+    user_agent = parse(request.user_agent.string)
+    return user_agent.is_mobile or user_agent.is_tablet
 
 with db:
     db.create_tables([Category, Product, InventorySnapshot])
@@ -82,6 +87,8 @@ def login():
 @app.get("/")
 @login_required #any user can access home page
 def home():
+    if is_mobile():
+        return redirect('/mobile', 303)
     # Fills the days left for each product with product.get_days_until_out
     Product.fill_days_left()
     # Loads products in urgency order
@@ -415,16 +422,6 @@ def render_mobile_category_page():
     category = Category.ALL_PRODUCTS_PLACEHOLDER if category_id is None or category_id == 0 else Category.get_category(category_id)
     products = Product.alphabetized_of_category(category_id)
     return render_template("mobile_category.html", product_list=products, category=category)
-
-
-
-
-
-
-
-
-
-
 
 
 
