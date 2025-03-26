@@ -39,3 +39,12 @@
     font-family: 'Gotham Book', sans-serif;
     text-transform: uppercase;
 }
+.none-in-category {
+    margin: 20px;
+    margin-top: 0;
+    font-family: 'Gotham Book', sans-serif;
+    color: var(--hrdc-theme-alert);
+    text-align: center;
+    display: inline-block;
+    width: calc(100% - 40px);
+}

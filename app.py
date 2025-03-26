@@ -375,7 +375,6 @@ def render_mobile_category_page():
         category_id = None
     category = Category.ALL_PRODUCTS_PLACEHOLDER if category_id is None or category_id == 0 else Category.get_category(category_id)
     products = Product.alphabetized_of_category(category_id)
-    print('product count', len(products))
     return render_template("mobile_category.html", product_list=products, category=category)
 
 

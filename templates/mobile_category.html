@@ -9,14 +9,16 @@
     </a>
 </div>
 
-<div class="mobile-form-container">
-    <img src="icons/search_icon.svg" alt="Search Icon"/>
-    <input class="mobile-form-control" placeholder="Search {{ category.name }}"/>
-</div>
+{% if product_list|length != 0 %}
+    <div class="mobile-form-container">
+        <img src="icons/search_icon.svg" alt="Search Icon"/>
+        <input class="mobile-form-control" placeholder="Search {{ category.name }}"/>
+    </div>
+{% endif %}
 
 <div class="grid-land">
-    {% if category_list|length == 0 %}
-        <span>No items with category &quot;{{ category.name }}&quot;</span>
+    {% if product_list|length == 0 %}
+        <span class="none-in-category">No items with category &quot;{{ category.name }}&quot;</span>
     {% endif %}
     {% for product in product_list %}
         <div class="product-row box-shadow-small">
