@@ -95,6 +95,17 @@ def home():
     return render_template("index.html", product_list=products, user=current_user,
                            categories=categories, current_category=category_id, levels=levels)
 
+@app.get("/search")
+def search():
+    category_id = request.args.get('category_id', default=0, type=int)
+    search_term = request.args.get('q', '')
+    if search_term:
+        products = Product.search(search_term)
+    else:
+        products = Product.all()
+    categories = Category.all()
+    return render_template("table.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
+
 @app.get("/reports")
 @login_required
 def reports():
