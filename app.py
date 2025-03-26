@@ -227,8 +227,8 @@ def update_inventory(product_id: int):
 @login_required #any user can update inventory
 def update_inventory_mobile(product_id: int):
     if request.form.get('_method') == 'PATCH':
-        new_stock = request.form.get('stock', None, type=int)
-        if new_stock is None or new_stock < 0:
+        change_in_stock = request.form.get('stock', None, type=int)
+        if change_in_stock is None or change_in_stock < 0:
             return abort(400, description="Stock count must be a positive integer")
         
         stock_type = request.form.get("stock_type", False)
@@ -241,14 +241,14 @@ def update_inventory_mobile(product_id: int):
         
         current_stock = product.inventory
         if stock_type == 'donation':
-            product.update_stock(current_stock + new_stock, True)
+            product.update_stock(current_stock + change_in_stock, True)
         elif stock_type == 'purchased':
-            product.update_stock(current_stock + new_stock, False)
+            product.update_stock(current_stock + change_in_stock, False)
         elif stock_type == 'taken':
-            if new_stock > current_stock:
-                return abort(400, description=f"Cannot take {new_stock} units with only {current_stock} in stock")
+            if change_in_stock > current_stock:
+                return abort(400, description=f"Cannot take {change_in_stock} units with only {current_stock} in stock")
             else:
-                product.update_stock(current_stock - new_stock, False)
+                product.update_stock(current_stock - change_in_stock, False)
 
         product.mark_not_notified()
         EmailJob.process_emails(User.get_by_username('admin').email)
