@@ -229,7 +229,7 @@ def update_inventory_mobile(product_id: int):
     if request.form.get('_method') == 'PATCH':
         change_in_stock = request.form.get('stock', None, type=int)
         if change_in_stock is None or change_in_stock < 0:
-            return abort(400, description="Stock count must be a positive integer")
+            return abort(400, description="Stock count must be a positive integer") #technically it only needs to be nonnegative
         
         stock_type = request.form.get("stock_type", False)
         if not stock_type in ('donation', 'purchased', 'taken'):
