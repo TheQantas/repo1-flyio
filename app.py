@@ -239,12 +239,12 @@ def update_inventory_mobile(product_id: int):
         if product is None:
             return abort(404, description=f"Could not find product with id {product_id}")
         
+        current_stock = product.inventory
         if stock_type == 'donation':
-            product.update_stock(new_stock, True)
+            product.update_stock(current_stock + new_stock, True)
         elif stock_type == 'purchased':
-            product.update_stock(new_stock, False)
+            product.update_stock(current_stock + new_stock, False)
         elif stock_type == 'taken':
-            current_stock = product.inventory
             if new_stock > current_stock:
                 return abort(400, description=f"Cannot take {new_stock} units with only {current_stock} in stock")
             else:
@@ -252,7 +252,7 @@ def update_inventory_mobile(product_id: int):
 
         product.mark_not_notified()
         EmailJob.process_emails(User.get_by_username('admin').email)
-        return redirect("/" + str(product_id), 303)
+        return redirect(f'/mobile-category?category_id={product.category.get_id()}', 303)
     else:
         return abort(405, description="Method Not Allowed")
 

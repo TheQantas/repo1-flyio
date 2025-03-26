@@ -48,3 +48,16 @@
     display: inline-block;
     width: calc(100% - 40px);
 }
+
+.inventory-row-cont {
+    height: 20px;
+    display: flex;
+    align-items: center;
+}
+.inventory-row-cont > span {
+    display: inline-block;
+    flex-shrink: 0;
+    color: var(--hrdc-theme-dark-teal);
+    font-family: 'Gotham Book', sans-serif;
+    font-size: 0.8em;
+}

@@ -2,7 +2,7 @@
     <div class="box-shadow-small">
         <form action="/update_mobile/inventory/{{ product.get_id() }}" method="POST">
             <input type="hidden" name="_method" value="PATCH">
-            <input type="number" id="stock" name="stock" min="0" placeholder="Amount in {{ product.unit_type }}" required>
+            <input type="number" id="stock" name="stock" min="0" placeholder="Change in {{ product.unit_type }}" required>
             <label class="mobile-modal-radio-container">Adding Donated Inventory
                 <input type="radio" name="stock_type" value="donation" checked>
                 <span class="mobile-modal-radio-dot"></span>

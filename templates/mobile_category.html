@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% from "macros.html" import inventory_item_bar %}
 {% block content %}
 <link rel="stylesheet" href="styles/mobile_base.css"/>
 <link rel="stylesheet" href="styles/mobile_category.css"/>
@@ -30,6 +31,10 @@
             {% endif %}
             <div class="product-row-rhs">
                 <span class="product-row-name">{{ product.product_name }}</span>
+                <div class="inventory-row-cont">
+                    {{ inventory_item_bar(product.inventory, product.ideal_stock) }}
+                    <span>{{ product.inventory }}/{{ product.ideal_stock }}</span>
+                </div>
                 <a class="product-row-adjust" hx-get="/load_update_mobile/{{ product.id }}" hx-target="body" hx-swap="beforeend">Update Stock</a>
             </div>
         </div>
