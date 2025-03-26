@@ -8,10 +8,36 @@
     human_desc: a human-readable attribute name
 -->
 
-<div class="urgency-placeholder">
-    <div></div>
-    <div></div>
-    <div></div>
+<div class="urgency-banners">
+    <div>
+        <div class="shadow">
+            <div class="red_rectangle"></div>
+            <div class="banner">
+                <p style="font-size: 1.5rem; font-weight: bold;">{{ levels[0] }}</p>
+                <p style="font-size: .75rem">Low Stock Products</p>
+            </div>
+        </div>
+
+    </div>
+    <div>
+        <div class="shadow">
+            <div class="orange_rectangle"></div>
+            <div class="banner">
+                <p style="font-size: 1.5rem; font-weight: bold;">{{ levels[1] }}</p>
+                <p style="font-size: .75rem">Medium Stock Products</p>
+            </div>
+        </div>
+    </div>
+    <div>
+        <div class="shadow">
+            <div class="green_rectangle"></div>
+            <div class="banner">
+                <p style="font-size: 1.5rem; font-weight: bold;">{{ levels[2] }}</p>
+                <p style="font-size: .75rem">Well Stocked Products</p>
+            </div>
+        </div>
+    </div>
+
 </div>
 <div class="scaffolding">
     <div class="filter-parent">
