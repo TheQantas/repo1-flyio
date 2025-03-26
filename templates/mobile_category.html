@@ -2,6 +2,7 @@
 {% block content %}
 <link rel="stylesheet" href="styles/mobile_base.css"/>
 <link rel="stylesheet" href="styles/mobile_category.css"/>
+<link rel="stylesheet" href="styles/mobile_update_stock.css"/>
 
 <div class="back-row">
     <a href="/mobile">
@@ -29,7 +30,7 @@
             {% endif %}
             <div class="product-row-rhs">
                 <span class="product-row-name">{{ product.product_name }}</span>
-                <a class="product-row-adjust" hx-get="/load_update/{{ product.id }}" hx-target="body" hx-swap="beforeend">Update Stock</a>
+                <a class="product-row-adjust" hx-get="/load_update_mobile/{{ product.id }}" hx-target="body" hx-swap="beforeend">Update Stock</a>
             </div>
         </div>
     {% endfor %}

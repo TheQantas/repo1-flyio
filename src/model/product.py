@@ -17,6 +17,10 @@ class Category(Model):
     @staticmethod
     def all() -> list['Category']:
         return list(Category.select())
+    
+    @staticmethod
+    def all_alphabetized() -> list['Category']:
+        return list(Category.select().order_by(Category.name))
 
     @staticmethod
     def add_category(name: str, color: str) -> 'Category':

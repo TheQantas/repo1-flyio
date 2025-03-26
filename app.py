@@ -223,6 +223,39 @@ def update_inventory(product_id: int):
     else:
         return abort(405, description="Method Not Allowed")
 
+@app.route("/update_mobile/inventory/<int:product_id>", methods=["POST"])
+@login_required #any user can update inventory
+def update_inventory_mobile(product_id: int):
+    if request.form.get('_method') == 'PATCH':
+        new_stock = request.form.get('stock', None, type=int)
+        if new_stock is None or new_stock < 0:
+            return abort(400, description="Stock count must be a positive integer")
+        
+        stock_type = request.form.get("stock_type", False)
+        if not stock_type in ('donation', 'purchased', 'taken'):
+            return abort(400, description=f"Unknown stock type \"{stock_type}\"")
+
+        product = Product.get_product(product_id)
+        if product is None:
+            return abort(404, description=f"Could not find product with id {product_id}")
+        
+        if stock_type == 'donation':
+            product.update_stock(new_stock, True)
+        elif stock_type == 'purchased':
+            product.update_stock(new_stock, False)
+        elif stock_type == 'taken':
+            current_stock = product.inventory
+            if new_stock > current_stock:
+                return abort(400, description=f"Cannot take {new_stock} units with only {current_stock} in stock")
+            else:
+                product.update_stock(current_stock - new_stock, False)
+
+        product.mark_not_notified()
+        EmailJob.process_emails(User.get_by_username('admin').email)
+        return redirect("/" + str(product_id), 303)
+    else:
+        return abort(405, description="Method Not Allowed")
+
 @app.route("/update/<int:product_id>", methods=["POST"])
 @login_required #admin only
 def update_all(product_id: int):
@@ -317,6 +350,12 @@ def load_update(product_id: int):
     product = Product.get_product(product_id)
     return render_template("modals/update_stock.html", product=product)
 
+@app.get("/load_update_mobile/<int:product_id>")
+@login_required
+def load_update_mobile(product_id: int):
+    product = Product.get_product(product_id)
+    return render_template("modals/update_stock_mobile.html", product=product)
+
 @app.get("/load_update_all/<int:product_id>")
 @login_required
 def load_update_all(product_id: int):
@@ -363,7 +402,7 @@ def update_settings():
 def render_mobile_home_page():
     categories = [
         Category.ALL_PRODUCTS_PLACEHOLDER,
-        *Category.all()
+        *Category.all_alphabetized()
     ]
     return render_template("mobile_index.html", category_list=categories)
 
