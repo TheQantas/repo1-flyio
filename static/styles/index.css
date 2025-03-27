@@ -3,6 +3,10 @@ body {
     overflow-y: auto;
 }
 
+.form-control
+{
+    padding: 15px 22%;
+}
 .navigation {
     display: flex;
     flex-direction: row;
@@ -62,9 +66,6 @@ body {
     filter: brightness(1) invert(0);
 }
 
-
-.form-control {
-    padding: 15px 30.5%;
     font-family: 'Gotham Book';
     font-size: 14px;
     font-weight: bold;
