@@ -286,7 +286,7 @@ class Product(Model):
     #1. sets the lifetime_purchased
     #2. if adjust_inventory is set, it will add/subtract from stock as well
     def set_purchased(self, new_amount: int, adjust_inventory: bool):
-        old_amount = self.lifetime_donated
+        old_amount = self.lifetime_purchased
         if adjust_inventory:
             self.inventory = self.inventory + (new_amount - old_amount)
         self.lifetime_purchased = new_amount

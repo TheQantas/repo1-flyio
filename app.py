@@ -331,6 +331,15 @@ def update_donated(product_id: int):
     product.set_donated(int(request.form.get("donated_amount")), bool(request.form.get("adjust_stock")))
     return redirect(f"/{product_id}")
 
+@app.route("/update_purchased/<int:product_id>", methods=["POST"])
+@login_required
+def update_purchased(product_id: int):
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can access this feature.')
+    product = Product.get_by_id(product_id)
+    product.set_purchased(int(request.form.get("purchased_amount")), bool(request.form.get("adjust_stock")))
+    return redirect(f"/{product_id}")
+
 
 #MODALS
 @app.get("/load_update_donated/<int:product_id>")
@@ -340,6 +349,15 @@ def load_update_donated(product_id: int):
         return abort(401, description='Only admins can access this feature.')
     product = Product.get_product(product_id)
     return render_template("modals/update_donated.html",
+                           product=product)
+
+@app.get("/load_update_purchased/<int:product_id>")
+@login_required
+def load_update_purchased(product_id: int):
+    if current_user.username != 'admin':
+        return abort(401, description='Only admins can access this feature.')
+    product = Product.get_product(product_id)
+    return render_template("modals/update_purchased.html",
                            product=product)
 
 @app.get("/load_update/<int:product_id>")
