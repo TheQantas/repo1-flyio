@@ -328,7 +328,12 @@ def update_donated(product_id: int):
     if current_user.username != 'admin':
         return abort(401, description='Only admins can access this feature.')
     product = Product.get_by_id(product_id)
-    product.set_donated(int(request.form.get("donated_amount")), bool(request.form.get("adjust_stock")))
+    amount: int = int(request.form.get("donated_amount"))
+    adjust_stock: bool = bool(request.form.get("adjust_stock"))
+    diff: int = amount - product.lifetime_donated
+    if adjust_stock and diff < 0 and -diff > product.inventory:
+        return abort(400, description="action would produce a negative stock level") 
+    product.set_donated(amount, adjust_stock)
     return redirect(f"/{product_id}")
 
 @app.route("/update_purchased/<int:product_id>", methods=["POST"])
@@ -337,7 +342,12 @@ def update_purchased(product_id: int):
     if current_user.username != 'admin':
         return abort(401, description='Only admins can access this feature.')
     product = Product.get_by_id(product_id)
-    product.set_purchased(int(request.form.get("purchased_amount")), bool(request.form.get("adjust_stock")))
+    amount: int = int(request.form.get("purchased_amount"))
+    adjust_stock: bool = bool(request.form.get("adjust_stock"))
+    diff: int = amount - product.lifetime_purchased
+    if adjust_stock and diff < 0 and -diff > product.inventory:
+        return abort(400, description="action would produce a negative stock level") 
+    product.set_purchased(amount, adjust_stock)
     return redirect(f"/{product_id}")
 
 

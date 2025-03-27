@@ -185,37 +185,13 @@ class Product(Model):
     def get_csv(cls):
         output = io.StringIO()
         writer = csv.writer(output)
-        writer.writerow(['Name', 'Category', 'Inventory', 'Price', 'Unit Type', 'Ideal Stock', 'Days Left'])
+        writer.writerow(['Name', 'Category', 'Inventory', 'Price', 'Unit Type', 'Ideal Stock',\
+                          'Days Left', 'Lifetime amount donated', 'Lifetime amount purchased'])
         for product in cls.select():
-            writer.writerow([product.product_name, product.category.name, product.inventory, product.price, product.unit_type, product.ideal_stock, product.days_left])
+            writer.writerow([product.product_name, product.category.name, product.inventory, \
+                             product.price, product.unit_type, product.ideal_stock, product.days_left, product.lifetime_donated, product.lifetime_purchased])
         output.seek(0)
         return output.getvalue()
-
-    # def get_donated_inventory(self) -> int:
-    #     snapshots = InventorySnapshot.product_snapshots_chronological(self.get_id())
-    #     prev_inventory = 0
-    #     donated = 0
-    #     for record in snapshots:
-    #         if record.inventory < prev_inventory or not record.donation:
-    #             prev_inventory = record.inventory
-    #             continue
-    #         increase = record.inventory - prev_inventory
-    #         donated += increase
-    #         prev_inventory = record.inventory
-    #     return donated
-                
-    # def get_purchased_inventory(self) -> int:
-    #     snapshots = InventorySnapshot.product_snapshots_chronological(self.get_id())
-    #     prev_inventory = 0
-    #     purchased = 0
-    #     for record in snapshots:
-    #         if record.inventory < prev_inventory or record.donation:
-    #             prev_inventory = record.inventory
-    #             continue
-    #         increase = record.inventory - prev_inventory
-    #         purchased += increase
-    #         prev_inventory = record.inventory
-    #     return purchased
 
     # Calculates the average inventory used per day
     def get_usage_per_day(self) -> float | None:
@@ -329,7 +305,6 @@ class Product(Model):
 class InventorySnapshot(Model):
     product_id = IntegerField(null=False)
     inventory = IntegerField(null=False)
-    # donation = BooleanField(default=False)
     timestamp = DateTimeField(default=datetime.datetime.now)
     ignored = BooleanField(default=False) # To be used if a value was added in error
 
@@ -367,7 +342,6 @@ class InventorySnapshot(Model):
         snapshot = InventorySnapshot.create(
             product_id=product_id,
             inventory=inventory, 
-            # donation=donation
         )
         return snapshot
     
