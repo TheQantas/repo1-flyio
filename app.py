@@ -25,6 +25,7 @@ app.config['SECRET_KEY'] = secrets.token_urlsafe()
 app.config['SECRET_KEY'] = "asdf"
 app.config["SESSION_PROTECTION"] = "strong"
 UPLOAD_FOLDER = os.path.join("static", "images")
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config['UPLOADED_IMAGES'] = UPLOAD_FOLDER
 
 
