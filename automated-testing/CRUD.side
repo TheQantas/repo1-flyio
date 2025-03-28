@@ -2,7 +2,7 @@
   "id": "9ce8ea3f-3d46-4bb4-bdf5-18c77c8d8ec8",
   "version": "2.0",
   "name": "CRUD",
-  "url": "http://127.0.0.1:5000",
+  "url": "http://127.0.0.1:8080",
   "tests": [{
     "id": "821a5bbf-942f-457e-8d2d-4cea8f67590b",
     "name": "login",
@@ -396,6 +396,6 @@
     "timeout": 300,
     "tests": []
   }],
-  "urls": ["http://127.0.0.1:5000/"],
+  "urls": ["http://127.0.0.1:8080/"],
   "plugins": []
 }
