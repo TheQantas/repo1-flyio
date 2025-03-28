@@ -217,7 +217,8 @@ def delete(product_id: int):
     products = Product.urgency_rank()
     categories = Category.all()
     category_id = request.args.get('category_id', default=0, type=int)
-    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
+    levels = Product.get_low_products()
+    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id, levels=levels)
 
 @app.delete("/delete_category/<int:category_id>")
 def delete_category(category_id: int):
@@ -228,7 +229,8 @@ def delete_category(category_id: int):
     products = Product.urgency_rank()
     categories = Category.all()
     category_id = request.args.get('category_id', default=0, type=int)
-    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id)
+    levels = Product.get_low_products()
+    return render_template("index.html", product_list=products, user=current_user, categories=categories, current_category=category_id, levels=levels)
 
 
 
