@@ -41,7 +41,7 @@ jobs:
       run: sleep 10
 
     - name: Check Flask server
-      run: curl -I http://localhost:5000 || exit 1
+      run: curl -I http://localhost:8080 || exit 1
 
     - name: Install Selenium-side-runner
       run: npm install -g selenium-side-runner
